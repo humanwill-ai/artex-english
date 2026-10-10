@@ -1,0 +1,816 @@
+{
+  "version": 1,
+  "policy": "Exact compatibility inputs, preserved record markers, and original technical examples only. Never exempt entire runtime files, logging functions, or arbitrary source ranges. Update only after reviewing the new content and purpose.",
+  "go_literals": [
+    {
+      "file": "agent/provider.go",
+      "context": "IsQuotaExhaustedMessage",
+      "value": "欠费",
+      "sha256": "252837b321b20965b37322915f16eefbeb80ef2deb204a308cd18f2e36c0fd50",
+      "count": 1,
+      "reason": "Exact external-provider quota/billing error tokens; recognition is language-independent and must retain provider text."
+    },
+    {
+      "file": "agent/provider.go",
+      "context": "IsQuotaExhaustedMessage",
+      "value": "额度不足",
+      "sha256": "29699203c5e84954fcd0bac7b051ec05679fd8369576536d9cc1fba56b5be786",
+      "count": 1,
+      "reason": "Exact external-provider quota/billing error tokens; recognition is language-independent and must retain provider text."
+    },
+    {
+      "file": "agent/provider.go",
+      "context": "IsQuotaExhaustedMessage",
+      "value": "余额不足",
+      "sha256": "8fce3e14c309e60a552291e9d1eeedbdb44e79e175a0426d42708a07ecd77827",
+      "count": 1,
+      "reason": "Exact external-provider quota/billing error tokens; recognition is language-independent and must retain provider text."
+    },
+    {
+      "file": "agent/provider.go",
+      "context": "IsQuotaExhaustedMessage",
+      "value": "额度已用尽",
+      "sha256": "d7de0a8211a900d7dd4df8794d4529ad975239e053823c3453c76e16b99ed8f3",
+      "count": 1,
+      "reason": "Exact external-provider quota/billing error tokens; recognition is language-independent and must retain provider text."
+    },
+    {
+      "file": "db/company_scope.go",
+      "context": "ParseAutoScopeLine",
+      "value": "备案",
+      "sha256": "71942f7519d589a12729dc4ff1645e2ad4874ee2e1417a5c4bb829a1a3817ca3",
+      "count": 1,
+      "reason": "ICP registration syntax from external company-scope input, not generated prose."
+    },
+    {
+      "file": "db/english_defaults.go",
+      "context": "MigratePristineEnglishPrompt",
+      "value": "内置默认",
+      "sha256": "03c3f68152032efada7c7e7838a92323a19256b746cde921f1109a69d641f8bb",
+      "count": 1,
+      "reason": "Historical system-seed note used to identify pristine defaults; never rewrite custom records."
+    },
+    {
+      "file": "db/intercept.go",
+      "context": "declaration",
+      "value": "COALESCE(NULLIF(ip.decision_source,''), CASE\n WHEN ip.rule_id IS NOT NULL THEN 'rule'\n WHEN ip.reason LIKE '[模型]%' THEN 'model' ELSE 'unknown' END)",
+      "sha256": "6607f023eb563ccf96d3a4793468ca9ee3163627dc27dfdc35766052f7e83d88",
+      "count": 1,
+      "reason": "Historical model-source audit marker in SQL classification; stored evidence remains unchanged."
+    },
+    {
+      "file": "db/intercept.go",
+      "context": "interceptSource",
+      "value": "[模型]",
+      "sha256": "f9a235dc9938d233d8aa04787929c498f23aa96016b8ebb4b19c4978a18ccbbf",
+      "count": 1,
+      "reason": "Historical model-source audit marker used for backwards-compatible classification."
+    },
+    {
+      "file": "db/task_archives_restore.go",
+      "context": "restoreInterceptRows",
+      "value": "[模型]",
+      "sha256": "f9a235dc9938d233d8aa04787929c498f23aa96016b8ebb4b19c4978a18ccbbf",
+      "count": 1,
+      "reason": "Historical model-source audit marker used during restoration; preserves stored audit provenance."
+    },
+    {
+      "file": "intercept/intercept.go",
+      "context": "Judge",
+      "value": "[模型] ",
+      "sha256": "1f0bf700595a87cd48e0599bdb8be6f6f28fd8820d72f3e4f7e8abf27fbb68d1",
+      "count": 2,
+      "reason": "Stable model-source audit marker retained as a technical record token; surrounding prose is English."
+    },
+    {
+      "file": "intercept/intercept.go",
+      "context": "Judge",
+      "value": "[模型]",
+      "sha256": "f9a235dc9938d233d8aa04787929c498f23aa96016b8ebb4b19c4978a18ccbbf",
+      "count": 1,
+      "reason": "Stable model-source audit marker retained as a technical record token; surrounding prose is English."
+    },
+    {
+      "file": "intercept/prompt.go",
+      "context": "ParseVerdict",
+      "value": "；命中规则：",
+      "sha256": "084ebf502ad1f2a52345dc1ba294fe0df00db3fb1b934baed681bc334b275a13",
+      "count": 1,
+      "reason": "Legacy verdict format accepted for saved custom policies and historical model responses; new policy prose is English."
+    },
+    {
+      "file": "intercept/prompt.go",
+      "context": "ParseVerdict",
+      "value": "实际操作：",
+      "sha256": "47c524665e51890ad01a972f902a76f02d74a50698bde9e7972437547b1e99ab",
+      "count": 1,
+      "reason": "Legacy verdict format accepted for saved custom policies and historical model responses; new policy prose is English."
+    },
+    {
+      "file": "intercept/prompt.go",
+      "context": "ParseVerdict",
+      "value": "；成功后的后果：",
+      "sha256": "5b22a2d6616c476fb035226bc811d7dd492650dd2adedd4b806edd9966a63f9d",
+      "count": 1,
+      "reason": "Legacy verdict format accepted for saved custom policies and historical model responses; new policy prose is English."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayDTO",
+      "value": "SELECT EXISTS (\n SELECT 1 FROM agent_prompts WHERE agent_id=$1 AND version=1\n AND updated_by='system' AND note IN ('内置默认','Built-in default') AND template_text IN ($2,$3)\n )",
+      "sha256": "9f4820d66479a09f938c136a4007de8c8f5d44500dfd7adeb842acda8ddd6733",
+      "count": 1,
+      "reason": "Historical system-seed note in provenance query; recognizes old defaults without overwriting user edits."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "渗透测试",
+      "sha256": "0106317c833d3b0953aef0e4132f42260e9b85cf5886d80360c1235d9e215a70",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "规划",
+      "sha256": "29d38fc5d43c11f4a0baf98ae379fa95648d106a49817ee6b58d3f6589653878",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "执行",
+      "sha256": "32c8d373afe083288422a6f2cafff08b030e090039666a1fbe4ad63e477e9bca",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "读取态势、判定目标，只在确有未覆盖的新方向时补充探索意图（每任务一个规划循环）。",
+      "sha256": "4f653c15b08a4e9c6118937fdb79ff42a6f5ffa2034a6c91c1fd7efc09c411c5",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "平台操作助手：用工具管理任务(建/看/暂停/给提示)与资产，并可创建/修改 skill、自定义工具、MCP。",
+      "sha256": "59b756ca75678a8f981c29b7bd36f984ee0b96ab0a1e2e11b0776fec4f2e1593",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "把渗透任务目标拆解成若干独立、可验证的子目标。",
+      "sha256": "7cb488ec57048e6fc834825e014517620ae60b699630858a1e81798fe656f295",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "目标拆解",
+      "sha256": "96643a1fb21da547a6760d19ebef97580aad0235cafdf87c2ad2baae119bdc8b",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "主",
+      "sha256": "9e32fa2b4f94bff5fa6975013b292557f9b310a42019f779690a360824060d12",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "人机接口：观察进展，把人的意图落成 hint 或高优先级意图。",
+      "sha256": "a2aa3823f78713c7dc37cbf17ae6c2c32fbb5b2f654f64dbc242019af8ad87e5",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "独立渗透 agent：一人从侦察→找攻击面→深入利用→验证→收尾走完整条链，自己规划、自己执行、自己对抗式验证。",
+      "sha256": "ccece68e845f48f72e50efb608d5da842e68a834bea6a6835d9390955ba94031",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "agentDisplayText",
+      "value": "领取一条意图执行，把发现的事实/漏洞写回知识图谱后停止。",
+      "sha256": "e9d35a25f36077080c7c5af2238f40d358b2423dbcf5ccaba3da296f7b40e16f",
+      "count": 1,
+      "reason": "Exact historical built-in labels/descriptions used only for English display matching; customized text is preserved."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "declaration",
+      "value": "취약점 상세 보고서 작성: 취약점을 발견하면 자동으로 트리거되어, 증거와 실행 과정을 조회한 뒤 Markdown 보고서를 작성해 해당 취약점에 기록합니다.",
+      "sha256": "04a50a1e13e140170872f4b393e8bed0aa4bcdeffeb620ae383b967bc5917461",
+      "count": 1,
+      "reason": "Exact historical seeded reporter metadata used for pristine-default identity matching."
+    },
+    {
+      "file": "server/agent_display.go",
+      "context": "declaration",
+      "value": "보고서 작성",
+      "sha256": "4c090f6ff0844a25cc8cf1468cc94a2c16f7cd5d8ac369b5854675e094ba81c6",
+      "count": 1,
+      "reason": "Exact historical seeded reporter metadata used for pristine-default identity matching."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "域名",
+      "sha256": "222952431147e537ba039e7db280fb092acc66b05726d5f096369c6bedefd00f",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "企业",
+      "sha256": "409d0719010a46eecde9d1fdcccb856bc334c584cbdd263e5f66b20747e8234f",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "子域名",
+      "sha256": "4b4788120c34db39d87896aad706255d49ab32fa2c05ad4043db6eb3b1d2b51a",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "资产",
+      "sha256": "5f45bb826b168fde027b42e23fd916e5e77f4544438ff2abbf37930f0a0abf0a",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "应用",
+      "sha256": "63c73c4730f4473ea2beef0ad57a558a421b2505fd141f0c21ff6c8116a457a4",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "漏洞",
+      "sha256": "b0475a364bcbc58bd9d4576b3341ef5acfebed9b5b85db1af282894a8ec1023a",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "接口",
+      "sha256": "c80d519245a7e8436264ce9c431dc7e2e8dbbd991001da84430a108dd0517d0a",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "@\\[(漏洞|资产|企业|接口|IP|应用|域名|子域名|服务)#([0-9]+)(?: [^\\]\\r\\n]*)?\\]",
+      "sha256": "c8ddb28546cbb55a885c716bfafe20b563948f4e5db2032668cd0a82d4920587",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/chat_mentions.go",
+      "context": "declaration",
+      "value": "服务",
+      "sha256": "ec309ab207ef7fa31b139a743e5bf864ae84aa1ae2cdebb5d304ac05a67c58fd",
+      "count": 1,
+      "reason": "Legacy mention syntax/parser aliases for existing user-authored messages."
+    },
+    {
+      "file": "server/conversations.go",
+      "context": "isDefaultConversationTitle",
+      "value": "새 대화",
+      "sha256": "a50e48a86f7575301e7bd69f91aa9cd5b38362642bf0905551e8e0500905fd26",
+      "count": 1,
+      "reason": "Exact historical default titles recognized for compatibility, not new conversation output."
+    },
+    {
+      "file": "server/conversations.go",
+      "context": "isDefaultConversationTitle",
+      "value": "新对话",
+      "sha256": "ea4b29f58f879802461cd48b58743428406f16d091886ef5297e1b772a330eb6",
+      "count": 1,
+      "reason": "Exact historical default titles recognized for compatibility, not new conversation output."
+    },
+    {
+      "file": "server/english_defaults.go",
+      "context": "declaration",
+      "value": "漏洞复测",
+      "sha256": "34e46240160a0e9c8e277a4e9e8583077999c3e513b2ae5a5f49101841f7ed5c",
+      "count": 1,
+      "reason": "Exact historical seeded retest metadata used only for pristine-default migration matching."
+    },
+    {
+      "file": "server/english_defaults.go",
+      "context": "declaration",
+      "value": "从漏洞详情手动启动，读取原证据并保存独立复测结论。",
+      "sha256": "c322a7b83d7dccacb98429b2f94aa342da0fd370a68a0f4ef863db5724c4511f",
+      "count": 1,
+      "reason": "Exact historical seeded retest metadata used only for pristine-default migration matching."
+    },
+    {
+      "file": "server/finding_workflow.go",
+      "context": "seedFindingWorkflowTools",
+      "value": "查询记录代理已抓取的目标流量（必须指定 host，可再按 URL 子串或正文关键词过滤）。body_contains 会在已抓取的请求/响应头与正文中做全文搜索，支持任意子串和中文（至少 3 个字符），可用来找响应里的密码、密钥、报错、内网地址等。仅返回极轻量索引(id/method/url/status/resp_len)，不含任何响应内容。默认只返回 3 条、每页最多 10 条；结果多时用 page 翻页（page=0 起）；要看某条的请求/响应原文用 traffic_get(id)。回看已访问资源、找端点先用它，避免重复 curl 同一 URL。",
+      "sha256": "5adfaf6a43f0c3d34d3b9d9994394f6dc2e3174d4789600d1b5abe44fa21617c",
+      "count": 1,
+      "reason": "Exact original traffic-tool description used only as a migration comparator; custom descriptions survive."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptDecisionReasonForDisplay",
+      "value": "사람이 실행을 거부했습니다",
+      "sha256": "071082c89faa81474e6a468093aa3e2d29d7d9a91382b9f81b03acda86baca6a",
+      "count": 1,
+      "reason": "Historical Korean decision reason translated at the display boundary; raw decision preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptDecisionReasonForDisplay",
+      "value": "실행 전에 작업이 취소되었습니다",
+      "sha256": "0f05e502774e9aa5e4a60ff15e2b4a042f2c6622968c1a4eaa5b946ad35f7d46",
+      "count": 1,
+      "reason": "Historical Korean decision reason translated at the display boundary; raw decision preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptDecisionReasonForDisplay",
+      "value": "사람이 실행을 허용했습니다",
+      "sha256": "364076f4227c47c160b806faf382bde6d5d6b10831ea80dd0f06e6aa22cf4b58",
+      "count": 1,
+      "reason": "Historical Korean decision reason translated at the display boundary; raw decision preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptDecisionReasonForDisplay",
+      "value": "승인 시간이 초과되어 시간 초과 정책에 따라 처리합니다",
+      "sha256": "6270476a213b46dd56323e2f81ce60e5efa613bd07ab80a98c84cdce34fa11f4",
+      "count": 1,
+      "reason": "Historical Korean decision reason translated at the display boundary; raw decision preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptDecisionReasonForDisplay",
+      "value": "작업이 취소되었습니다",
+      "sha256": "8ce7f8b2321e2e546295b5360050025b89e5f7289ca7291f29ab6fb111dcba73",
+      "count": 1,
+      "reason": "Historical Korean decision reason translated at the display boundary; raw decision preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptReasonForDisplay",
+      "value": "모델 출력을 해석할 수 없어 실패 정책에 따라 처리합니다",
+      "sha256": "0e436eead17443242b064384d459f363a42592bf9c62a5d1331b9ec7246d17ca",
+      "count": 1,
+      "reason": "Historical model marker or original Korean reason translated at the display boundary; raw audits/custom text preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptReasonForDisplay",
+      "value": "[模型] ",
+      "sha256": "1f0bf700595a87cd48e0599bdb8be6f6f28fd8820d72f3e4f7e8abf27fbb68d1",
+      "count": 1,
+      "reason": "Historical model marker or original Korean reason translated at the display boundary; raw audits/custom text preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptReasonForDisplay",
+      "value": "확인 요청",
+      "sha256": "53bd94fc0a06ed2ff0aacd43c91f3cd3d7335ce9732c073c43385183ad5ecafc",
+      "count": 1,
+      "reason": "Historical model marker or original Korean reason translated at the display boundary; raw audits/custom text preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptReasonForDisplay",
+      "value": "허용",
+      "sha256": "688200c48345251173d4b3b2ec84b72a0ff3ae13419d1030b4b021b0776dbc2b",
+      "count": 1,
+      "reason": "Historical model marker or original Korean reason translated at the display boundary; raw audits/custom text preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptReasonForDisplay",
+      "value": "검토 맥락이 완전하지 않아 사람의 확인이 필요합니다: ",
+      "sha256": "8a2738f421dda7260cf914b563a4164759ef4aa93c463387a19366622fc494ad",
+      "count": 1,
+      "reason": "Historical model marker or original Korean reason translated at the display boundary; raw audits/custom text preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptReasonForDisplay",
+      "value": "모델 승인에 실패하여 실패 정책에 따라 처리합니다: ",
+      "sha256": "8a5d4a2685c5ec387362c844f8452ae7063eacb9225e381d4177053b88664da2",
+      "count": 1,
+      "reason": "Historical model marker or original Korean reason translated at the display boundary; raw audits/custom text preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptReasonForDisplay",
+      "value": "차단",
+      "sha256": "c7d4f68087a57a8970ffc6b8cdf04ad753bd2179439a422bb250d70d0f74a03a",
+      "count": 1,
+      "reason": "Historical model marker or original Korean reason translated at the display boundary; raw audits/custom text preserved."
+    },
+    {
+      "file": "server/intercept_display.go",
+      "context": "interceptReasonForDisplay",
+      "value": "[模型]",
+      "sha256": "f9a235dc9938d233d8aa04787929c498f23aa96016b8ebb4b19c4978a18ccbbf",
+      "count": 1,
+      "reason": "Historical model marker or original Korean reason translated at the display boundary; raw audits/custom text preserved."
+    },
+    {
+      "file": "server/logsink.go",
+      "context": "levelOf",
+      "value": "拒绝",
+      "sha256": "136de7a8c46fc8031b2243ef930866dba2e3bb42984596cb4e31824a0d050371",
+      "count": 1,
+      "reason": "Legacy/external log-severity recognition tokens; generated application logs are English."
+    },
+    {
+      "file": "server/logsink.go",
+      "context": "levelOf",
+      "value": "失败",
+      "sha256": "28384d7afd2e4fa66084f6803b9d3cb3b1c1ebb0a4ecc4cc97706745405e5df4",
+      "count": 1,
+      "reason": "Legacy/external log-severity recognition tokens; generated application logs are English."
+    },
+    {
+      "file": "server/logsink.go",
+      "context": "levelOf",
+      "value": "禁用",
+      "sha256": "7df5c456c765e4c30da0afd87be09c7056c30c99acac52ceb15d4acea400c9fd",
+      "count": 1,
+      "reason": "Legacy/external log-severity recognition tokens; generated application logs are English."
+    },
+    {
+      "file": "server/logsink.go",
+      "context": "levelOf",
+      "value": "不可达",
+      "sha256": "8d7c03019f1dd903801056206f788dfa0d59c29f53a385abfd807d6c5464b277",
+      "count": 1,
+      "reason": "Legacy/external log-severity recognition tokens; generated application logs are English."
+    },
+    {
+      "file": "server/logsink.go",
+      "context": "levelOf",
+      "value": "丢弃",
+      "sha256": "b16f71b55691cdc3055ae0a3fb270f0222252c3c032223ae78ccc562be4f212b",
+      "count": 1,
+      "reason": "Legacy/external log-severity recognition tokens; generated application logs are English."
+    },
+    {
+      "file": "server/logsink.go",
+      "context": "levelOf",
+      "value": "重试",
+      "sha256": "b8784c8dd5636ff231b121892144e4a3977d5b874f21934c53f850cde7bac0ea",
+      "count": 1,
+      "reason": "Legacy/external log-severity recognition tokens; generated application logs are English."
+    },
+    {
+      "file": "server/orchestration.go",
+      "context": "declaration",
+      "value": "先用 get_finding_traffic(finding_id) 读取当前证据清单及其 version（空清单是正常情况，照常写报告）；",
+      "sha256": "27f51a87b9ca7f3a470f8359c81429148ca5b72dfe0786b5ffb402053ffe3176",
+      "count": 1,
+      "reason": "Exact historical reporter trigger text used as a migration comparator, not newly emitted instructions."
+    },
+    {
+      "file": "server/orchestration.go",
+      "context": "declaration",
+      "value": "上面刚有一个漏洞被 report_finding 登记。请读取返回 JSON 的 finding_id（独立漏洞记录 ID）与 finding_node_id（探索节点 ID），",
+      "sha256": "4aa2db89609b14b9a0e2eabe2bc91359fd7aa4d20109d55ce6364feab124880e",
+      "count": 1,
+      "reason": "Exact historical reporter trigger text used as a migration comparator, not newly emitted instructions."
+    },
+    {
+      "file": "server/orchestration.go",
+      "context": "declaration",
+      "value": "上面刚有一个漏洞被 report_finding 登记。请从触发上下文里取出 finding_id",
+      "sha256": "4bc2984e6581f8d35f48fd19d837e864edf36d7b25571b62c5ada386b4ada2f5",
+      "count": 1,
+      "reason": "Exact historical reporter trigger text used as a migration comparator, not newly emitted instructions."
+    },
+    {
+      "file": "server/orchestration.go",
+      "context": "declaration",
+      "value": "若运行指引启用自动绑定，在读取前先核实并关联本次漏洞的流量。节点详情使用 finding_node_id。",
+      "sha256": "8c5302c1f4255986a1372c9d365e9ebca115ff734afa6ec97cfb9ef1a97fd624",
+      "count": 1,
+      "reason": "Exact historical reporter trigger text used as a migration comparator, not newly emitted instructions."
+    },
+    {
+      "file": "server/orchestration.go",
+      "context": "declaration",
+      "value": "（工具返回 \"finding recorded: <id>\" 里的数字）与任务 id，按你的职责撰写该漏洞的详细报告，",
+      "sha256": "8c6aeae324e0b55d2542b487fe622b4d4ae3f6ee8ef80c030149121da37e9e71",
+      "count": 1,
+      "reason": "Exact historical reporter trigger text used as a migration comparator, not newly emitted instructions."
+    },
+    {
+      "file": "server/orchestration.go",
+      "context": "declaration",
+      "value": "evidence_version 必须传，否则报告会被永久标记为待更新。不要混用两种编号。",
+      "sha256": "997b97ae146cd0aed0108acc3f2e8c7563a077c93f0a84afeb1eb008f32bb615",
+      "count": 1,
+      "reason": "Exact historical reporter trigger text used as a migration comparator, not newly emitted instructions."
+    },
+    {
+      "file": "server/orchestration.go",
+      "context": "declaration",
+      "value": "最后调用 update_finding_report(finding_id, report) 保存。",
+      "sha256": "cf22e984afed5d1f854a2e64a0439356c09b8d931568d1873bfc953178e3b1bc",
+      "count": 1,
+      "reason": "Exact historical reporter trigger text used as a migration comparator, not newly emitted instructions."
+    },
+    {
+      "file": "server/orchestration.go",
+      "context": "declaration",
+      "value": "最后调用 update_finding_report(finding_id=finding_node_id, report, evidence_version=实际读取版本) 保存，",
+      "sha256": "d4da92b76c5142132f9b932d9330c99dd97a6efd456deb311214f99517b07776",
+      "count": 1,
+      "reason": "Exact historical reporter trigger text used as a migration comparator, not newly emitted instructions."
+    },
+    {
+      "file": "server/server.go",
+      "context": "fallbackCommand",
+      "value": "힌트",
+      "sha256": "44746a61424c86daa2d049ba6a72c1599ea1d95b428d3a4b610082411d1b9df7",
+      "count": 2,
+      "reason": "Legacy Chinese/Korean user command aliases; English command identifiers remain unchanged."
+    },
+    {
+      "file": "server/server.go",
+      "context": "fallbackCommand",
+      "value": "의도",
+      "sha256": "72efa4a39d46eebed1c3b7e6288493db52d4529d409a0f09b555a4cca044e55d",
+      "count": 2,
+      "reason": "Legacy Chinese/Korean user command aliases; English command identifiers remain unchanged."
+    },
+    {
+      "file": "server/server.go",
+      "context": "fallbackCommand",
+      "value": "意图",
+      "sha256": "8edf354cc3720631d32d1500bdabcc177855dccf66223c074176623359a03f65",
+      "count": 2,
+      "reason": "Legacy Chinese/Korean user command aliases; English command identifiers remain unchanged."
+    },
+    {
+      "file": "server/server.go",
+      "context": "fallbackCommand",
+      "value": "提示",
+      "sha256": "f56c6c82203b33f632fb357d7fbea6dca86d5863f35a3b5a6f72ecfaacc0c396",
+      "count": 2,
+      "reason": "Legacy Chinese/Korean user command aliases; English command identifiers remain unchanged."
+    }
+  ],
+  "skill_lines": [
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "# 对比 forge 前后 runtime_api.json 条数；检查 /attack、/asset 等是否出现模块 API",
+      "sha256": "02ece803d76e11f2920d237c77770c054a85de4b4d214767f60f2dccf0de22e3",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "# 以 Phase 1 已知 path 为锚",
+      "sha256": "1dbc8091ed474a958ccb694388a409e7a4fcdd6dec010fe078c548bea4fe777f",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "# 产出 recon/route_map.json",
+      "sha256": "280f60aecf8a14b0617f56414e50623d9eb2b125b62d6227085ffa5be8d5e079",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "# routes 应覆盖 route_map 全部 link",
+      "sha256": "2d3a752e8037545d9593af7ad86db8ea326ed6f2150008215160069db82f5aad",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "# permissions 数量应 ≈ userRouteAuth 条目数",
+      "sha256": "50418ca618fe8bd8c4d052e14369530971f765c5f6c768e996097c9bbd7a099f",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "grep -rhoaE '.{0,40}(未登录|请重新登录|登录已过期|unauthorized|登录失效|授权|token.{0,10}invalid).{0,40}' js | head",
+      "sha256": "885037a416f94ef7e5bda64da598b4af50aa4e2d13345eeeefafbd34f1948a4a",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "  stubs: [ /* 同 config.json stubs */ ],",
+      "sha256": "9a46db11ca96740d9fd0c0b681290b2887fe4b1e8b6e944530a4988c51413cdd",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "# axios / 统一 request",
+      "sha256": "b2eb0fe760940f8ea3cfadac03bad43849ecbf4351fa0e5be72e00ffbf26fd61",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/reference.md",
+      "context": "skill source line",
+      "value": "# 路径参数",
+      "sha256": "e431a0d9c09f3c08c1a7663d4f0d146efcc49d53d09d1872f13c3b62ce45b72b",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/api-recon/scripts/preload.js",
+      "context": "skill source line",
+      "value": "  const NEGATIVE_RE = /未登录|未授权|授权|not\\s*login|unauthorized|forbidden/i;",
+      "sha256": "d6ab2edd27f8f1d888a68487a99ff3952777563cee24b4984f899aaf49a20445",
+      "count": 1,
+      "reason": "External login/authorization-response recognition regex; original target-language tokens must remain intact."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "- MCP endpoint: `http://<主机>/mcp` (use the actual `/mcp` address if a reverse proxy or frontend proxy is present)",
+      "sha256": "23f7ccbfb4a1459016318af875cb6b3992bb901ee3bd1f04abac6a3eec31a863",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "- `task==\"某任务名\"` (replace with the task name)",
+      "sha256": "2a4a12146b135fcab22ff8450ffb95fbe82178c1a408746d8115151a3d62f69d",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "{\"project\": [\"<项目ObjectID>\"], \"port\": [\"443\"]}",
+      "sha256": "30db8eada622c709c8e0a189d0273063ab437f7561e6158c36e5aadf4133972a",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"search\": \"task==\\\"example-子域名收集\\\"\",",
+      "sha256": "52404ca021043b79bd64c341f1144a73b58eeea1e94ed1660a38b1d149472519",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"search\": \"task==\\\"某任务名\\\"\",",
+      "sha256": "53885c2cb9e2793f0c55a6353a227f3ef63690ef7b0ce4585651c7980e35d0f1",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "      \"url\": \"http://<你的主机>:8082/mcp\",",
+      "sha256": "595ce7f6c152311ce3813558e29a776ba170cd7f495cf8cea1bc4dff605a1366",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "- For SensitiveResult rule names, use `sname=规则名` in search (replace the rule-name placeholder), or `filter.sname`.",
+      "sha256": "5c51441363e3ede3888c94ad07e3c585bd40cb3017639337c988bc80a42105a5",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"template\": \"<后续模块模板ObjectID>\",",
+      "sha256": "6731e2559c219db644b5ba55ec2b15e871dfc175b54575eafecb8510bf1ca7fd",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "Alternatively, use `Authorization: Bearer ssk_你的密钥` (replace the placeholder with your key).",
+      "sha256": "7bca6b1c14b9accb253f69849dfa1be77c136ecdc16a92f57fe96cc59d4a3e90",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "- Default web interface: `http://<主机>` (replace the placeholder with your host)",
+      "sha256": "8952d5aa97fb258b2c024adc6bae6c4b2d5d69a62c89c25485cd3d22c8cd87ab",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "        \"X-API-Key\": \"ssk_你的密钥\"",
+      "sha256": "9b3a8b83ae5ac2b7269068a8f34a930ba146984d3d87c195ff4155ccd682cf73",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"filter\": {\"project\": [\"<项目ObjectID>\"]}",
+      "sha256": "b09af57e1cdfc9f6a5eb9eecdf56d73e35d8ffa899b8cdba04f1de6010376deb",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"filter\": {\"project\": [\"<项目ObjectID>\"]},",
+      "sha256": "c0bf09ae4c34dd36b7995bc6837ac47f09beee955d55827eb304c41d994edea9",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"template\": \"<模板ObjectID>\",",
+      "sha256": "c6aa5d0b429969024ad524d9593c2cde6f6528728f0ea4d22afb8c3e330f85cb",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "    \"project\": [\"<项目ObjectID>\"]",
+      "sha256": "d1f8ac4b3580774642429a7388f1c057f18a706e159bbeea7b006ea0b560cdee",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"name\": \"example-子域名收集\",",
+      "sha256": "d4d4ea388a67273275763098902429d55d46b8f103af80e69d2868e21210c240",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"project\": [\"<项目ObjectID>\"]",
+      "sha256": "e925e0d20af0585e2c8b87d09df9dc7e02260994c5e2a5f1b90b71353f9cea3b",
+      "count": 2,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    },
+    {
+      "file": "skills/scopesentry/SKILL.md",
+      "context": "skill source line",
+      "value": "  \"name\": \"example-端口与漏洞\",",
+      "sha256": "f2bcee547da60f2034f9a967a40bfe2680145295dd5d653cb4c4eb330c3ffb69",
+      "count": 1,
+      "reason": "Original source-edition technical example/code retained byte-for-byte; surrounding instructional prose is English."
+    }
+  ]
+}

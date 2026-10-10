@@ -16,6 +16,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Spinner } from "@/components/ui/spinner";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api } from "@/lib/api";
 import type { FindingRetest } from "@/lib/types";
 
@@ -127,7 +128,7 @@ export function FindingRetestPanel({
                       : t(`status.${item.status}`)}
                   </Badge>
                   <span className="text-muted-foreground text-xs">
-                    #{item.id} · {new Date(item.created_at).toLocaleString("ko-KR")}
+                    #{item.id} · {new Date(item.created_at).toLocaleString(FORMAT_LOCALE)}
                   </span>
                   {item.conversation_id != null ? (
                     <Button asChild variant="ghost" size="sm" className="ml-auto">

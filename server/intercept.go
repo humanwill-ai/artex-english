@@ -27,9 +27,9 @@ func (s *Server) chatGuard() *guard.Guard {
 // intercept.Judge 가 msgModelApprovalFailed 로 감싸 Decision.Message 로 노출하므로,
 // 래퍼(intercept 패키지)와 언어가 어긋나지 않게 함께 한국어로 둔다.
 const (
-	errNoJudgeModel          = "사용할 수 있는 판정 모델이 설정되지 않았습니다"
-	errJudgeModelUnavailable = "%d번 판정 모델 프로필을 사용할 수 없습니다"
-	errJudgeVerdictMalformed = "모델 판정 형식이 올바르지 않습니다. 판정·실제 동작·성공 후 결과·적중 규칙을 모두 포함해야 합니다"
+	errNoJudgeModel          = "No usable review model is configured"
+	errJudgeModelUnavailable = "Review model profile #%d is unavailable"
+	errJudgeVerdictMalformed = "Invalid model review format: verdict, actual action, outcome on success, and matched rules are all required"
 )
 
 // wireInterceptReviewer installs the LLM fallback judge into the interceptor. The
@@ -221,7 +221,7 @@ func (s *Server) interceptListPending(w http.ResponseWriter, r *http.Request) {
 	if pending == nil {
 		pending = []db.InterceptPending{}
 	}
-	writeJSON(w, 200, map[string]any{"pending": pending})
+	writeJSON(w, 200, map[string]any{"pending": pendingInterceptViews(pending)})
 }
 
 func (s *Server) interceptGetOne(w http.ResponseWriter, r *http.Request) {
@@ -243,7 +243,7 @@ func (s *Server) interceptGetOne(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, 404, "not found")
 		return
 	}
-	writeJSON(w, 200, p)
+	writeJSON(w, 200, interceptPendingView{*p, interceptReasonForDisplay(*p)})
 }
 
 func (s *Server) interceptListTaskItems(w http.ResponseWriter, r *http.Request) {
@@ -271,7 +271,7 @@ func (s *Server) interceptListTaskItems(w http.ResponseWriter, r *http.Request) 
 		if items == nil {
 			items = []db.InterceptApprovalRow{}
 		}
-		writeJSON(w, 200, map[string]any{"items": items, "total": len(items)})
+		writeJSON(w, 200, map[string]any{"items": approvalInterceptViews(items), "total": len(items)})
 		return
 	}
 	page, size := interceptPageParams(q)
@@ -283,7 +283,7 @@ func (s *Server) interceptListTaskItems(w http.ResponseWriter, r *http.Request) 
 	if items == nil {
 		items = []db.InterceptApprovalRow{}
 	}
-	writeJSON(w, 200, map[string]any{"items": items, "total": total, "page": page, "page_size": size})
+	writeJSON(w, 200, map[string]any{"items": approvalInterceptViews(items), "total": total, "page": page, "page_size": size})
 }
 
 func (s *Server) interceptHistory(w http.ResponseWriter, r *http.Request) {
@@ -306,7 +306,7 @@ func (s *Server) interceptHistory(w http.ResponseWriter, r *http.Request) {
 		if items == nil {
 			items = []db.InterceptApprovalRow{}
 		}
-		writeJSON(w, 200, map[string]any{"items": items, "total": len(items)})
+		writeJSON(w, 200, map[string]any{"items": approvalInterceptViews(items), "total": len(items)})
 		return
 	}
 	page, size := interceptPageParams(q)
@@ -318,7 +318,7 @@ func (s *Server) interceptHistory(w http.ResponseWriter, r *http.Request) {
 	if items == nil {
 		items = []db.InterceptApprovalRow{}
 	}
-	writeJSON(w, 200, map[string]any{"items": items, "total": total, "page": page, "page_size": size})
+	writeJSON(w, 200, map[string]any{"items": approvalInterceptViews(items), "total": total, "page": page, "page_size": size})
 }
 
 func interceptFilterParams(q url.Values) (db.InterceptApprovalFilter, error) {
@@ -326,12 +326,12 @@ func interceptFilterParams(q url.Values) (db.InterceptApprovalFilter, error) {
 	switch filter.Status {
 	case "", "pending", "allowed", "denied", "timeout":
 	default:
-		return filter, fmt.Errorf("status 값은 pending, allowed, denied, timeout 중 하나여야 합니다")
+		return filter, fmt.Errorf("status must be one of pending, allowed, denied, timeout")
 	}
 	switch filter.DecisionSource {
 	case "", "model", "rule", "unknown":
 	default:
-		return filter, fmt.Errorf("decision_source 값은 model, rule, unknown 중 하나여야 합니다")
+		return filter, fmt.Errorf("decision_source must be one of model, rule, unknown")
 	}
 	return filter, nil
 }
@@ -365,7 +365,7 @@ func (s *Server) interceptDecide(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if req.Decision != "allowed" && req.Decision != "denied" {
-		writeErr(w, 400, "decision 값은 allowed 또는 denied 중 하나여야 합니다")
+		writeErr(w, 400, "decision must be allowed or denied")
 		return
 	}
 	if err := s.m.interceptor.Decide(id, req.Decision == "allowed"); err != nil {
@@ -430,13 +430,13 @@ func (s *Server) interceptSetJudgeConfig(w http.ResponseWriter, r *http.Request)
 	switch req.FailAction {
 	case "allow", "ask", "deny":
 	default:
-		writeErr(w, 400, "fail_action 값은 allow, ask, deny 중 하나여야 합니다")
+		writeErr(w, 400, "fail_action must be one of allow, ask, deny")
 		return
 	}
 	switch req.AskTimeoutAction {
 	case "allow", "deny":
 	default:
-		writeErr(w, 400, "ask_timeout_action 값은 allow 또는 deny 중 하나여야 합니다")
+		writeErr(w, 400, "ask_timeout_action must be allow or deny")
 		return
 	}
 	if err := s.m.interceptor.SetJudgeConfig(req); err != nil {
@@ -464,29 +464,29 @@ type interceptRuleReq struct {
 
 func validateInterceptRuleReq(req interceptRuleReq) error {
 	if req.Name == "" {
-		return fmt.Errorf("name 값은 비워 둘 수 없습니다")
+		return fmt.Errorf("name must not be empty")
 	}
 	switch req.MatchTarget {
 	case "tool_name", "tool_input":
 	default:
-		return fmt.Errorf("match_target 값은 tool_name 또는 tool_input 중 하나여야 합니다")
+		return fmt.Errorf("match_target must be tool_name or tool_input")
 	}
 	switch req.MatchType {
 	case "string", "regex":
 	default:
-		return fmt.Errorf("match_type 값은 string 또는 regex 중 하나여야 합니다")
+		return fmt.Errorf("match_type must be string or regex")
 	}
 	if req.Pattern == "" {
-		return fmt.Errorf("pattern 값은 비워 둘 수 없습니다")
+		return fmt.Errorf("pattern must not be empty")
 	}
 	switch req.Action {
 	case "allow", "deny", "ask":
 	default:
-		return fmt.Errorf("action 값은 allow, deny, ask 중 하나여야 합니다")
+		return fmt.Errorf("action must be one of allow, deny, ask")
 	}
 	if req.MatchType == "regex" {
 		if _, err := regexp.Compile(req.Pattern); err != nil {
-			return fmt.Errorf("pattern 값이 올바른 정규식이 아닙니다: %w", err)
+			return fmt.Errorf("pattern is not a valid regular expression: %w", err)
 		}
 	}
 	return nil
@@ -511,7 +511,7 @@ func (s *Server) interceptDetail(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, 404, "not found")
 		return
 	}
-	writeJSON(w, 200, detail)
+	writeJSON(w, 200, detailedInterceptView(detail))
 }
 
 // The navigation endpoint returns only the original call and its paired result.
@@ -549,11 +549,11 @@ func (s *Server) interceptExecution(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			if conv == nil {
-				writeErr(w, http.StatusGone, "대화가 이미 삭제되었습니다")
+				writeErr(w, http.StatusGone, "The conversation has already been deleted")
 				return
 			}
 		}
-		writeErr(w, 404, "승인 기록이 삭제되었거나 존재하지 않습니다")
+		writeErr(w, 404, "The approval record was deleted or does not exist")
 		return
 	}
 	writeJSON(w, 200, map[string]any{"conversation_id": target.ConversationID, "task_id": target.TaskID, "session": target.Session, "seq": target.Seq, "items": activityDTOs(target.Items)})

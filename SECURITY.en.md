@@ -1,8 +1,10 @@
 # Security Policy
 
-[한국어](SECURITY.md) · English
+English policy for the HumanWill edition · [Korean source-edition policy](SECURITY.md)
 
-This document explains how to report security vulnerabilities in the **ARTEX Korean edition (`artex-ko`) code itself**. ARTEX is an offensive-security tool that performs penetration testing, but what this document covers is not the results of attacking something with the tool; it is **vulnerabilities that arise when you operate or deploy this software**.
+This repository is currently private and has no published HumanWill release. See [the current README](README.md) for project status.
+
+This document explains how to report security vulnerabilities in the **HumanWill ARTEX English edition (`humanwill-ai/artex-en`) code itself**. ARTEX is an offensive-security tool that performs penetration testing, but what this document covers is not the results of attacking something with the tool; it is **vulnerabilities that arise when you operate or deploy this software**.
 
 For example:
 
@@ -15,7 +17,7 @@ For example:
 
 **Do not file security vulnerabilities as public issues.** Once public, they can be exploited before a patch is available. Please use one of the following private channels instead.
 
-1. Report through the repository's **Security** tab → **"Report a vulnerability"** (private security advisory, GitHub Private Vulnerability Reporting). Only maintainers can see this channel.
+1. If available in **humanwill-ai/artex-en**, use **Security** → **"Report a vulnerability"** (GitHub Private Vulnerability Reporting). Availability is not assumed during private preparation.
 2. If that feature is not enabled, do not write sensitive details. Open only a minimal issue stating that you would like a private security contact, and ask the maintainers to open a private channel.
 
 Including the following in your report speeds up triage:
@@ -32,7 +34,7 @@ Including the following in your report speeds up triage:
 
 ## Supported scope
 
-This repository is a **Korean localization of the original ARTEX**, maintained by volunteers. Security fixes are provided against the **latest default branch**. We do not guarantee backports to earlier releases. If a vulnerability belongs to the upstream code regardless of localization, we recommend also reporting it to [Autumn-27/ARTEX](https://github.com/Autumn-27/ARTEX) (currently unreachable, checked 2026-10).
+This repository is the **HumanWill English localization of jiwoochris/artex-ko, derived from Autumn-27/ARTEX**. Security fixes are provided against the **latest default branch**. We do not guarantee backports to earlier releases. If a vulnerability also affects upstream code, coordinate with the HumanWill maintainers on any report to [jiwoochris/artex-ko](https://github.com/jiwoochris/artex-ko) or [Autumn-27/ARTEX](https://github.com/Autumn-27/ARTEX). Do not assume an upstream reporting channel is available.
 
 ## Out of scope
 

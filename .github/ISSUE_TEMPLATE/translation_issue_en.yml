@@ -1,14 +1,14 @@
 name: 🌐 Translation / localization issue
-description: Report a Korean translation that reads awkwardly, is wrong, or is missing.
+description: Report an English translation that reads awkwardly, is wrong, or is missing.
 title: "[translation] "
 labels: ["i18n"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for helping improve the quality of the Korean edition.
-        This repository's localization policy: **translate only user-facing output into Korean, and leave the agent's internal reasoning prompts and the original commands, payloads, code, and logs unchanged.**
-        The full principles are in [CONTRIBUTING.en.md](https://github.com/jiwoochris/artex-ko/blob/main/CONTRIBUTING.en.md#localization-policy).
+        Report a localization issue in the HumanWill English edition.
+        This repository's localization policy: **translate application-owned user-facing output into English, and preserve core behavioral instructions, source policies, custom prompts, commands, payloads, code, raw logs, and evidence.**
+        The full principles are in [CONTRIBUTING.en.md](https://github.com/humanwill-ai/artex-en/blob/main/CONTRIBUTING.en.md#localization-policy).
   - type: dropdown
     id: kind
     attributes:
@@ -16,7 +16,7 @@ body:
       options:
         - A translation reads awkwardly or unnaturally
         - A translation is wrong (the meaning differs)
-        - A translation is missing (still shows Chinese / English)
+        - A translation is missing (application-owned display text still shows Korean / Chinese)
         - Something that should not be translated was translated (commands, code, logs, etc.)
         - Terminology needs to be unified
     validations:
@@ -50,7 +50,7 @@ body:
     id: key
     attributes:
       label: Message key / file location
-      description: Only if you know it. For example, a key in web/messages/ko.json or a file path.
-      placeholder: "e.g. web/messages/ko.json → dashboard.title"
+      description: Only if you know it. For example, a key in web/messages/en.json or a file path.
+      placeholder: "e.g. web/messages/en.json → dashboard.title"
     validations:
       required: false

@@ -77,6 +77,26 @@ func seedServerEvidenceFlow(t *testing.T, s *Server, id string, body []byte) {
 	}
 }
 
+func TestOptionalFindingTrafficBindingID(t *testing.T) {
+	for _, raw := range []string{"", "null", `""`, `"  "`} {
+		id, list, err := optionalFindingTrafficBindingID(json.RawMessage(raw))
+		if err != nil || !list || id != 0 {
+			t.Fatalf("%q should request list: id=%d list=%v err=%v", raw, id, list, err)
+		}
+	}
+	for _, raw := range []string{"1", `"12"`} {
+		id, list, err := optionalFindingTrafficBindingID(json.RawMessage(raw))
+		if err != nil || list || id <= 0 {
+			t.Fatalf("%q should select binding: id=%d list=%v err=%v", raw, id, list, err)
+		}
+	}
+	for _, raw := range []string{"0", "-1", "1.5", `"0"`, `"-2"`, `"abc"`, "true", "{}", "[]"} {
+		if _, _, err := optionalFindingTrafficBindingID(json.RawMessage(raw)); err == nil {
+			t.Fatalf("%q should be rejected", raw)
+		}
+	}
+}
+
 func TestFindingTrafficToolUpgradePreservesCustomization(t *testing.T) {
 	s, _, _ := trafficEvidenceServer(t)
 	pg := s.m.pg
@@ -352,7 +372,7 @@ func TestFindingTrafficArchiveV3RoundTripAndRetry(t *testing.T) {
 	}
 	// The read tool enforces task visibility too.
 	result, err := s.toolGetFindingTraffic().Call(agent.WithRunInfo(ctx, agent.RunInfo{TaskID: sid}), json.RawMessage(fmt.Sprintf(`{"finding_id":"%d"}`, f.FindingID)), nil)
-	if err != nil || !strings.Contains(result.Flatten(), "不可读取") {
+	if err != nil || !strings.Contains(result.Flatten(), "cannot read") {
 		t.Fatal(result, err)
 	}
 }

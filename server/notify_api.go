@@ -22,24 +22,24 @@ import (
 // 通知推送→알림(크롬 nav "알림 발송"), 投递→전송, 推送模式→발송 모드. 로그·주석은 BRIEF
 // 방침상 최하위라 이 묶음 밖이다.
 const (
-	notifyErrBadJSON         = "요청 본문이 올바른 JSON 형식이 아닙니다: "
-	notifyErrKindInvalidFmt  = "채널 유형이 올바르지 않습니다. 가능한 값: %s"
-	notifyErrNameMissing     = "채널 이름을 입력하세요"
-	notifyErrNameEmpty       = "채널 이름은 비워 둘 수 없습니다"
-	notifyErrModeInvalid     = "발송 모드가 올바르지 않습니다. 가능한 값: realtime / digest"
-	notifyErrRateNegative    = "전송 제한 값은 음수일 수 없습니다"
-	notifyErrChannelID       = "채널 id 가 올바르지 않습니다"
-	notifyErrKindUnregFmt    = "채널 유형 %q 는 등록되어 있지 않습니다"
-	notifyErrDeliveryID      = "전송 id 가 올바르지 않습니다"
-	notifyErrChannelNotFound = "알림 채널을 찾을 수 없습니다"
+	notifyErrBadJSON         = "The request body is not valid JSON: "
+	notifyErrKindInvalidFmt  = "Invalid channel type. Allowed values: %s"
+	notifyErrNameMissing     = "Enter a channel name"
+	notifyErrNameEmpty       = "The channel name must not be empty"
+	notifyErrModeInvalid     = "Invalid delivery mode. Allowed values: realtime / digest"
+	notifyErrRateNegative    = "Rate limits must not be negative"
+	notifyErrChannelID       = "Invalid channel ID"
+	notifyErrKindUnregFmt    = "Channel type %q is not registered"
+	notifyErrDeliveryID      = "Invalid delivery ID"
+	notifyErrChannelNotFound = "Notification channel not found"
 )
 
 // 채널 연결을 점검할 때 보내는 테스트 메시지 본문이다. 사용자가 등록한 채널로 실제 발송되므로
 // 한국어로 두되, 받는 사람이 실제 취약점으로 오해하지 않도록 한눈에 테스트임이 드러나게 한다.
 const (
-	notifyTestName    = "테스트 메시지 · 채널 설정 정상"
-	notifyTestClass   = "연결 테스트"
-	notifyTestSummary = "ARTEX 알림 채널 테스트 메시지입니다. 이 메시지를 받으셨다면 채널 설정이 정상입니다."
+	notifyTestName    = "Test message · channel configured successfully"
+	notifyTestClass   = "Connection test"
+	notifyTestSummary = "This is an ARTEX notification channel test message. Receiving this message confirms that the channel is configured correctly."
 )
 
 // notifyChannelDTO 是渠道的对外表述。

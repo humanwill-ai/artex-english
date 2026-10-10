@@ -36,18 +36,13 @@ func TestPreToolUsePassthrough(t *testing.T) {
 	}
 }
 
-// TestSystemBlockMessagePreservedIsBrainInput pins the platform-governance framing
-// (systemBlockMessage) to its original Chinese bytes. That framing is the model-facing
-// tool_result that steers the pentest agent away from bypassing an intercept block
-// (see guard.go doc comment + the F14 보존 판단). For the ask-block paths the same
-// framed string also lands in the /api/audit record via g.record, so one string serves
-// both the agent input and the audit display — it must NOT be translated, or benchmarked
-// agent behavior could drift. This test fails if the framing is accidentally localized.
-func TestSystemBlockMessagePreservedIsBrainInput(t *testing.T) {
-	got := systemBlockMessage("<原因>")
-	want := "【ARTEX 平台管控·非目标防御】此调用被平台拦截。原因：<原因>。此操作被禁止。"
+// Preserve platform-versus-target framing and the caller's original reason.
+func TestSystemBlockMessageEnglishPreservesReason(t *testing.T) {
+	reason := "<原始原因>"
+	got := systemBlockMessage(reason)
+	want := "[ARTEX platform control — not target defense] The platform intercepted this call. Reason: " + reason + ". This operation is prohibited."
 	if got != want {
-		t.Errorf("systemBlockMessage framing drifted (F14 두뇌 보존 — 원문 유지해야 함):\n got %q\nwant %q", got, want)
+		t.Fatalf("platform framing or original reason changed: %q", got)
 	}
 }
 

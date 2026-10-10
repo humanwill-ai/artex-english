@@ -24,7 +24,9 @@ import { Markdown } from "@/components/markdown";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api } from "@/lib/api";
+import { approvalSummary } from "@/lib/approval-summary";
 import type { Activity, InterceptPending } from "@/lib/types";
 
 // ---- per-agent lane color (planner + work#1/#2/#3 …) ---------------------------
@@ -135,11 +137,11 @@ function ActivityTime({ ts }: { ts: string }) {
   return (
     <time
       dateTime={date.toISOString()}
-      title={date.toLocaleString("ko-KR")}
+      title={date.toLocaleString(FORMAT_LOCALE)}
       className="text-[10px] text-muted-foreground tabular-nums"
       suppressHydrationWarning
     >
-      {date.toLocaleString("ko-KR", {
+      {date.toLocaleString(FORMAT_LOCALE, {
         month: "2-digit",
         day: "2-digit",
         hour: "2-digit",
@@ -182,16 +184,7 @@ function toolInputText(tool: string, raw: string): string {
 // available immediately without waiting for the detail load.
 function InterceptCard({ step, getDetail }: { step: Activity; getDetail: (seq: number) => Promise<string> }) {
   const t = useTranslations("transcript");
-  // extract pending_id from summary: "도구 Bash 승인 요청 (#42)"
-  const pendingId = React.useMemo(() => {
-    const m = /\(#(\d+)\)/.exec(step.summary);
-    return m ? parseInt(m[1], 10) : null;
-  }, [step.summary]);
-
-  const toolName = React.useMemo(() => {
-    const m = /도구\s+(\S+)\s+승인/.exec(step.summary);
-    return m ? m[1] : step.summary;
-  }, [step.summary]);
+  const { pendingId, toolName } = React.useMemo(() => approvalSummary(step.summary), [step.summary]);
 
   const [detail, setDetail] = React.useState<Record<string, unknown> | null>(null);
   const [decided, setDecided] = React.useState<"allowed" | "denied" | "timeout" | null>(null);

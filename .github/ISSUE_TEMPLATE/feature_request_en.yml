@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for the suggestion. Filling in the fields below helps us align on direction.
+        Suggest a change to the HumanWill English edition. Describe the user need and any impact on localization, existing controls, or upstream compatibility.
   - type: checkboxes
     id: preflight
     attributes:

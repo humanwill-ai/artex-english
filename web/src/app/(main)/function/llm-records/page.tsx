@@ -32,12 +32,13 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api } from "@/lib/api";
 import type { LLMRecordDetail, LLMRecordItem, LLMTask } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 function fmtTime(ts: string) {
-  return new Date(ts).toLocaleString("ko-KR", {
+  return new Date(ts).toLocaleString(FORMAT_LOCALE, {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",

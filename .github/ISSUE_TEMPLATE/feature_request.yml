@@ -1,4 +1,4 @@
-name: 💡 기능 제안
+name: 💡 기능 제안 (한국어 · 원본 양식)
 description: 새로운 기능이나 개선 아이디어를 제안합니다.
 title: "[제안] "
 labels: ["enhancement"]
@@ -6,6 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
+        **HumanWill English edition:** this form retains wording from the original Korean edition. Current localization targets English; follow [the current contribution policy](https://github.com/humanwill-ai/artex-en/blob/main/CONTRIBUTING.en.md).
         아이디어를 제안해 주셔서 고맙습니다. 아래 항목을 채워 주시면 방향을 맞추기 좋습니다.
   - type: checkboxes
     id: preflight

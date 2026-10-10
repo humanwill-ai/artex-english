@@ -13,7 +13,9 @@
     "check:fix": "biome check --write",
     "prepare": "husky || true",
     "generate:presets": "ts-node -P tsconfig.scripts.json src/scripts/generate-theme-presets.ts",
-    "extract:i18n": "ts-node -P tsconfig.scripts.json src/scripts/extract-i18n.ts"
+    "extract:i18n": "ts-node -P tsconfig.scripts.json src/scripts/extract-i18n.ts",
+    "test": "node --experimental-strip-types --test src/lib/*.test.mjs src/i18n/*.test.mjs",
+    "check:i18n": "node scripts/check-i18n.mjs"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": ["biome check --write --no-errors-on-unmatched"]
@@ -64,6 +66,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.1",
+    "@formatjs/icu-messageformat-parser": "3.5.20",
     "@tailwindcss/postcss": "^4.3.2",
     "@types/d3-geo": "^3.1.0",
     "@types/node": "^22.20.0",

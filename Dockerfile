@@ -8,8 +8,8 @@
 # 로컬에서 이미지를 수동으로 빌드할 때는 먼저 바이너리를 직접 준비한다:
 #   cd web && npm run build:static && cd ..
 #   mkdir -p server/webui && cp -r web/out server/webui/dist
-#   CGO_ENABLED=0 GOARCH=amd64 go build -tags embedui -o dist/amd64/artex ./cmd/artex
-#   docker build -t artex:local .
+#   CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -tags embedui -o dist/amd64/artex ./cmd/artex
+#   docker build --platform linux/amd64 -t humanwill-artex-en:local .
 FROM python:3.12-slim-bookworm
 ARG TARGETARCH
 # 상용 도구: ripgrep / curl / vim 에 더해 recon 에 자주 쓰는 도구 묶음(필요에 따라 추가·삭제).

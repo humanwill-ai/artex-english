@@ -1,5 +1,7 @@
 # 행동 강령 (Code of Conduct)
 
+> HumanWill English edition: see [CODE_OF_CONDUCT.en.md](CODE_OF_CONDUCT.en.md). The Korean source document is retained below.
+
 한국어 · [English](CODE_OF_CONDUCT.en.md)
 
 ## 우리의 약속
@@ -32,7 +34,7 @@ ARTEX 는 공격 보안 도구입니다. 이 공동체 공간(이슈·PR·토론
 
 - 허가받지 않은 실제·운영 시스템에 대한 공격을 요청·공유·조장하는 행위
 - 특정 대상을 공격하기 위한 실행 정보를 주고받는 행위
-- [사용 범위](README.md#️-먼저-읽어-주세요--사용-범위와-국내법-고지)와 국내법을 벗어난
+- [사용 범위](README.ko.md#️-먼저-읽어-주세요--사용-범위와-국내법-고지)와 국내법을 벗어난
   사용을 돕는 행위
 
 ## 책임과 시행

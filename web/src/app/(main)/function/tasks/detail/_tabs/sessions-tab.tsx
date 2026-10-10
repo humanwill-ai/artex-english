@@ -51,6 +51,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useSideQuestions } from "@/hooks/use-side-questions";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api, sseUrl } from "@/lib/api";
 import { shouldSubmitOnKey, useChatSendMode } from "@/lib/chat-send-mode";
 import { MOCK } from "@/lib/mock/enabled";
@@ -1657,10 +1658,10 @@ export function SessionsTab({ taskId }: { taskId: string }) {
                 </TooltipTrigger>
                 <TooltipContent>
                   {t("tokens.full", {
-                    input: taskTokens.input_tokens.toLocaleString(),
-                    output: taskTokens.output_tokens.toLocaleString(),
-                    cacheRead: taskTokens.cache_read_tokens.toLocaleString(),
-                    cacheWrite: taskTokens.cache_write_tokens.toLocaleString(),
+                    input: taskTokens.input_tokens.toLocaleString(FORMAT_LOCALE),
+                    output: taskTokens.output_tokens.toLocaleString(FORMAT_LOCALE),
+                    cacheRead: taskTokens.cache_read_tokens.toLocaleString(FORMAT_LOCALE),
+                    cacheWrite: taskTokens.cache_write_tokens.toLocaleString(FORMAT_LOCALE),
                   })}
                 </TooltipContent>
               </Tooltip>
@@ -1847,10 +1848,10 @@ export function SessionsTab({ taskId }: { taskId: string }) {
                     </TooltipTrigger>
                     <TooltipContent>
                       {t("tokens.full", {
-                        input: activeTokens.input_tokens.toLocaleString(),
-                        output: activeTokens.output_tokens.toLocaleString(),
-                        cacheRead: activeTokens.cache_read_tokens.toLocaleString(),
-                        cacheWrite: activeTokens.cache_write_tokens.toLocaleString(),
+                        input: activeTokens.input_tokens.toLocaleString(FORMAT_LOCALE),
+                        output: activeTokens.output_tokens.toLocaleString(FORMAT_LOCALE),
+                        cacheRead: activeTokens.cache_read_tokens.toLocaleString(FORMAT_LOCALE),
+                        cacheWrite: activeTokens.cache_write_tokens.toLocaleString(FORMAT_LOCALE),
                       })}
                     </TooltipContent>
                   </Tooltip>

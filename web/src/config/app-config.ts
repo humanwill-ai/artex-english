@@ -9,6 +9,10 @@ const currentYear = new Date().getFullYear();
 // 한국어(ko)·중국어(zh)를 분기한다. zh 는 상류 대조를 위해 원문을 그대로 보존한다.
 // ko 제목은 엠대시 대신 콜론을 써서 "제품명: 설명" 형태로 둔다.
 const META_BY_LOCALE = {
+  en: {
+    title: "ARTEX: Autonomous Penetration Testing Console",
+    description: "HumanWill English edition of the ARTEX AI penetration testing console",
+  },
   ko: {
     title: "ARTEX: 자율 침투 테스트 콘솔",
     description: "LLM 기반으로 자율 침투 테스트를 수행하는 시스템 콘솔",

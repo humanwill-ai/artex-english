@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api } from "@/lib/api";
 import type { FindingTrafficDetail, TrafficDetail } from "@/lib/types";
 
@@ -92,7 +93,7 @@ export function TrafficEvidenceViewer({
               <TabsContent key={side} value={side}>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs text-muted-foreground">
-                    {t("viewer.bodyBytes", { bytes: detail[side].total.toLocaleString() })}
+                    {t("viewer.bodyBytes", { bytes: detail[side].total.toLocaleString(FORMAT_LOCALE) })}
                     {detail[side].truncated ? t("viewer.previewSuffix") : ""}
                   </span>
                   <Button

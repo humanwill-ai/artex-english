@@ -16,5 +16,5 @@ go run ./cmd/artex -addr :8787 -proxy 127.0.0.1:8788 &
 # 프런트엔드 핫 리로드(Vite/Next dev server, /api 는 :8787 로 리버스 프록시).
 ( cd web && npm run dev ) &
 
-echo "[dev] 백엔드 :8787 / 프록시 :8788 / 프런트엔드 http://localhost:5173  (Ctrl-C 로 종료)"
+echo "[dev] Backend :8787 / proxy :8788 / frontend http://localhost:5173  (Ctrl-C to stop)"
 wait

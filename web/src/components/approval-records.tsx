@@ -26,6 +26,7 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api } from "@/lib/api";
 import type {
   InterceptApprovalFilter,
@@ -40,7 +41,7 @@ type Translator = ReturnType<typeof useTranslations>;
 
 function fmtTime(value?: string) {
   if (!value) return "—";
-  return new Date(value).toLocaleString("ko-KR", {
+  return new Date(value).toLocaleString(FORMAT_LOCALE, {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
@@ -113,7 +114,7 @@ function StatusBadge({ status }: { status: string }) {
 
 function MatchCell({ row, showReason = true }: { row: InterceptApprovalRow; showReason?: boolean }) {
   const t = useTranslations("approval");
-  const reason = row.reason?.replace(/^\[模型\]\s*/, "");
+  const reason = (row.display_reason ?? row.reason)?.replace(/^\[模型\]\s*/, "");
   return (
     <div className="flex min-w-0 flex-col gap-1">
       {source(row) === "model" ? (
@@ -375,9 +376,11 @@ export function ApprovalDetail({
             <MatchCell row={current} showReason={false} />
           </div>
           <p className="whitespace-pre-wrap break-words text-sm leading-7 [overflow-wrap:anywhere]">
-            {current.reason?.replace(/^\[模型\]\s*/, "") || t("noApprovalReason")}
+            {(current.display_reason ?? current.reason)?.replace(/^\[模型\]\s*/, "") || t("noApprovalReason")}
           </p>
-          {audit?.decision_reason ? <p className="text-sm">{audit.decision_reason}</p> : null}
+          {audit?.decision_reason ? (
+            <p className="text-sm">{detail?.display_decision_reason ?? audit.decision_reason}</p>
+          ) : null}
           {audit?.effective_action ? (
             <p className="text-sm">
               {t("finalAction")}: {t(`action.${audit.effective_action}`)}

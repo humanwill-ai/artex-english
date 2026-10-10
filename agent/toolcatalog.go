@@ -3,6 +3,7 @@ package agent
 import (
 	"context"
 	"encoding/json"
+	"strings"
 
 	actool "github.com/Autumn-27/norma/tool"
 )
@@ -133,13 +134,17 @@ func (o *overriddenTool) Description() string         { return o.desc }
 func (o *overriddenTool) InputSchema() map[string]any { return o.schema }
 
 func (o *overriddenTool) Call(ctx context.Context, in json.RawMessage, tc *actool.ToolContext) (actool.Result, error) {
-	return o.CoreTool.Call(ctx, injectDefaults(in, o.schema), tc)
+	return o.CoreTool.Call(ctx, injectToolDefaults(in, o.schema, o.Name()), tc)
 }
 
 // injectDefaults fills scalar parameter defaults declared in the (possibly edited)
 // schema into the input JSON whenever the model omitted the field or left it empty/
 // null. Structure (names/types/required) is untouched — only缺省值 are merged in.
 func injectDefaults(in json.RawMessage, schema map[string]any) json.RawMessage {
+	return injectToolDefaults(in, schema, "")
+}
+
+func injectToolDefaults(in json.RawMessage, schema map[string]any, toolName string) json.RawMessage {
 	defs := scalarDefaults(schema)
 	if len(defs) == 0 {
 		return in
@@ -152,6 +157,12 @@ func injectDefaults(in json.RawMessage, schema map[string]any) json.RawMessage {
 	}
 	changed := false
 	for k, dv := range defs {
+		// Explicit null means no hint for this native tool, even through nested
+		// decorators with historical integer schemas and saved scalar defaults.
+		// Omission still uses a saved default; other fields/tools keep legacy rules.
+		if cur, present := m[k]; present && toolName == "report_finding" && k == "evidence_hint_id" && strings.TrimSpace(string(cur)) == "null" {
+			continue
+		}
 		if cur, ok := m[k]; !ok || isEmptyJSON(cur) {
 			m[k] = dv
 			changed = true

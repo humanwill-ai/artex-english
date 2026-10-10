@@ -119,7 +119,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api } from "@/lib/api";
+import { isArchiveNotFoundError } from "@/lib/legacy-errors";
 import { getLocalStorageValue, setLocalStorageValue } from "@/lib/local-storage.client";
 import { type SortDirection, useStoredSortPreference } from "@/lib/sort-preference";
 import type {
@@ -1606,7 +1608,7 @@ function archiveDate(value?: string): string {
   if (!value) return "—";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "—";
-  return date.toLocaleString();
+  return date.toLocaleString(FORMAT_LOCALE);
 }
 
 function ArchiveDeleteDialog({
@@ -1630,7 +1632,10 @@ function ArchiveDeleteDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>{t("archive.deleteTitle", { count: archives.length })}</AlertDialogTitle>
           <AlertDialogDescription className="[overflow-wrap:anywhere]">
-            {t("archive.deleteDescription", { size: formatArchiveBytes(bytes), rows: rows.toLocaleString() })}
+            {t("archive.deleteDescription", {
+              size: formatArchiveBytes(bytes),
+              rows: rows.toLocaleString(FORMAT_LOCALE),
+            })}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -1690,7 +1695,7 @@ function TaskArchivesPanel({ onChanged }: { onChanged: () => void }) {
         let restored = false;
         states.forEach((state, index) => {
           if (state.status !== "rejected" || !(state.reason instanceof Error)) return;
-          if (!state.reason.message.includes("보관을 찾을 수 없습니다")) return;
+          if (!isArchiveNotFoundError(state.reason.message)) return;
           pendingRestoreIDs.current.delete(pending[index]);
           restored = true;
         });
@@ -1947,7 +1952,9 @@ function TaskArchivesPanel({ onChanged }: { onChanged: () => void }) {
                     >
                       {archiveCompressionLabel(t, archive)}
                     </TableCell>
-                    <TableCell className="text-xs tabular-nums">{archiveDataTotal(archive).toLocaleString()}</TableCell>
+                    <TableCell className="text-xs tabular-nums">
+                      {archiveDataTotal(archive).toLocaleString(FORMAT_LOCALE)}
+                    </TableCell>
                     <TableCell>
                       <div className="flex min-w-0 flex-col gap-1.5">
                         <ArchiveStateBadge state={archive.state} />

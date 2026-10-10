@@ -3,6 +3,7 @@ package agent
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"testing"
 
 	actool "github.com/Autumn-27/norma/tool"
@@ -80,5 +81,52 @@ func TestDecorateToolInjectsDefaults(t *testing.T) {
 	}
 	if seen["limit"] != float64(9) {
 		t.Errorf("limit = %v, want 9 (no override)", seen["limit"])
+	}
+}
+
+func TestDecoratedFindingExplicitNullPreservesNoHint(t *testing.T) {
+	oldPolicy := FindingTrafficBindingEnabled
+	FindingTrafficBindingEnabled = func() bool { return true }
+	t.Cleanup(func() { FindingTrafficBindingEnabled = oldPolicy })
+	for _, defaultID := range []int{0, 37} {
+		for _, name := range []string{"report_finding", "unrelated_tool"} {
+			t.Run(fmt.Sprintf("%s/default_%d", name, defaultID), func(t *testing.T) {
+				var seen map[string]json.RawMessage
+				base := actool.Build(actool.Spec{Name: name, Run: func(_ context.Context, in json.RawMessage, _ *actool.ToolContext) (actool.Result, error) {
+					seen = nil
+					if err := json.Unmarshal(in, &seen); err != nil {
+						return actool.Result{}, err
+					}
+					return actool.Text("ok"), nil
+				}})
+				// Model the stored pre-fix schema inside the runtime nullable wrapper.
+				stored := map[string]any{"type": "object", "properties": map[string]any{
+					"evidence_hint_id": map[string]any{"type": "integer", "default": defaultID},
+					"limit":            map[string]any{"type": "integer", "default": 5},
+				}}
+				inner := DecorateTool(base, "CUSTOM", stored)
+				assembled, _ := findingWorkflowTools("worker", []actool.CoreTool{inner})
+				for _, tc := range []struct{ input, want string }{
+					{`{"evidence_hint_id":null,"limit":null}`, "null"},
+					{`{"evidence_hint_id": null ,"limit":null}`, "null"},
+					{`{"limit":null}`, fmt.Sprint(defaultID)},
+					{`{"evidence_hint_id":23,"limit":null}`, "23"},
+				} {
+					if _, err := assembled[0].Call(t.Context(), json.RawMessage(tc.input), nil); err != nil {
+						t.Fatal(err)
+					}
+					want := tc.want
+					if name != "report_finding" && want == "null" {
+						want = fmt.Sprint(defaultID)
+					}
+					if string(seen["evidence_hint_id"]) != want {
+						t.Fatalf("input %s: hint = %s, want %s", tc.input, seen["evidence_hint_id"], want)
+					}
+					if string(seen["limit"]) != "5" {
+						t.Fatalf("unrelated null/default changed: %s", seen["limit"])
+					}
+				}
+			})
+		}
 	}
 }

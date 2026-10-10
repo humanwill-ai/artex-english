@@ -211,14 +211,14 @@ def probe(url: str, timeout: float, retries: int, delay: float):
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="추적 마크다운의 외부 링크 생존 점검")
+    ap = argparse.ArgumentParser(description="Check external links in tracked Markdown files")
     ap.add_argument("--strict", action="store_true",
-                    help="DOWN 이 하나라도 있으면 종료 코드 1 (주기/릴리스 점검용)")
+                    help="Exit with code 1 if any non-allowlisted URL is DOWN (for periodic/release checks)")
     ap.add_argument("--list", action="store_true",
-                    help="네트워크 호출 없이 점검 대상 URL 과 출처만 출력")
-    ap.add_argument("--timeout", type=float, default=15.0, help="요청 타임아웃(초)")
-    ap.add_argument("--retries", type=int, default=2, help="네트워크 오류·5xx·429 재시도 횟수")
-    ap.add_argument("--delay", type=float, default=0.5, help="호출 간·재시도 간 기본 지연(초)")
+                    help="Print URLs and their source locations without network requests")
+    ap.add_argument("--timeout", type=float, default=15.0, help="Request timeout in seconds")
+    ap.add_argument("--retries", type=int, default=2, help="Number of retries for network errors and HTTP 5xx/408 responses")
+    ap.add_argument("--delay", type=float, default=0.5, help="Base delay between requests and retries in seconds")
     args = ap.parse_args()
 
     root = subprocess.check_output(
@@ -230,7 +230,7 @@ def main() -> int:
     allow = load_allowlist(root)
     found = extract(root, md_files)
     urls = sorted(found)
-    print(f"추적 마크다운 {len(md_files)}개에서 점검 대상 외부 URL {len(urls)}개 수집")
+    print(f"Collected {len(urls)} external URLs to check from {len(md_files)} tracked Markdown files")
 
     if args.list:
         for url in urls:
@@ -250,23 +250,23 @@ def main() -> int:
         print(f"  [{verdict:10}] {url} — {detail}")
 
     print(
-        f"\n요약: OK {len(results['OK'])} · RESTRICTED {len(results['RESTRICTED'])} · "
+        f"\nSummary: OK {len(results['OK'])} · RESTRICTED {len(results['RESTRICTED'])} · "
         f"ALLOWED {len(results['ALLOWED'])} · DOWN {len(results['DOWN'])}"
     )
     if results["RESTRICTED"]:
-        print("RESTRICTED(호스트 생존·확인 방법이 막힘, 깨진 링크 아님):")
+        print("RESTRICTED (host is reachable but blocks the check; not a broken link):")
         for url, detail in results["RESTRICTED"]:
             print(f"  {url} — {detail}")
     if results["ALLOWED"]:
-        print("ALLOWED(allowlist 에 적힌 알려진 DOWN — 우리가 고칠 수 없어 strict 제외):")
+        print("ALLOWED (known DOWN URLs on the allowlist; excluded from strict checks because we cannot fix them):")
         for url, detail in results["ALLOWED"]:
             where = ", ".join(f"{f}:{ln}" for f, ln in found[url])
-            print(f"  {url} — {detail}  (참조: {where})")
+            print(f"  {url} — {detail}  (source: {where})")
     if results["DOWN"]:
-        print("DOWN(깨졌을 가능성 높음 — 확인 필요):")
+        print("DOWN (likely broken; needs review):")
         for url, detail in results["DOWN"]:
             where = ", ".join(f"{f}:{ln}" for f, ln in found[url])
-            print(f"  {url} — {detail}  (참조: {where})")
+            print(f"  {url} — {detail}  (source: {where})")
 
     if args.strict and results["DOWN"]:
         return 1

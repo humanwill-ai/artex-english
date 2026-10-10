@@ -37,13 +37,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api } from "@/lib/api";
+import { isAlreadyExistsError } from "@/lib/legacy-errors";
 import type { Agent, MCPServer, MissingSkill, SkillCall, SkillItem } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 function fmtTime(ts: string | undefined, never: string) {
   if (!ts) return never;
-  return new Date(ts).toLocaleString("ko-KR", {
+  return new Date(ts).toLocaleString(FORMAT_LOCALE, {
     month: "2-digit",
     day: "2-digit",
     hour: "2-digit",
@@ -401,7 +403,7 @@ export default function SkillsPage() {
       const msg = (e as Error).message;
       // offer overwrite when the skill already exists
       // (server_mgmt.go errMgmtSkillExistsPre 와 짝 맞춘 교차 스택 마커)
-      if (!overwrite && msg.includes("이미 존재")) {
+      if (!overwrite && isAlreadyExistsError(msg)) {
         if (window.confirm(t("overwriteConfirm", { msg }))) {
           await uploadZip(file, true);
           return;

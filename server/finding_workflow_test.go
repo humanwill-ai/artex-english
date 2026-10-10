@@ -26,6 +26,90 @@ func workflowCall(t *testing.T, ctx context.Context, tool actool.CoreTool, input
 	return r.Flatten()
 }
 
+func TestFindingWorkflowGoalWaitsForCurrentPersistedArtifacts(t *testing.T) {
+	s, finding, _ := trafficEvidenceServer(t)
+	ctx := context.Background()
+	row, err := s.m.pg.GetFinding(finding.FindingID)
+	if err != nil || row == nil || row.TaskID == nil {
+		t.Fatal(row, err)
+	}
+	task, ok := s.m.Task(strconv.FormatInt(*row.TaskID, 10))
+	if !ok {
+		t.Fatal("task missing")
+	}
+	goalID, err := task.Store.AddNode(db.KindGoal, map[string]any{"text": "Confirm and report this local finding", "completion": "finding_workflow"}, 0, "open", "test", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	planner := agent.NewToolSet(task.Store, "planner")
+	planner.SetTaskID(*row.TaskID)
+	planner.SetAssetStore(s.m.assets, s.m.assets.Companies())
+	prove := workflowTool(t, planner.PlannerTools(), "prove_goal")
+	proof := map[string]any{"goal_id": goalID, "evidence_id": finding.NodeID, "outcome": "confirmed"}
+	workflowCall(t, ctx, prove, proof, true)
+	seedServerEvidenceFlow(t, s, "goal-proof", []byte("local proof"))
+	if _, err := s.evidenceStore().Bind(ctx, finding.FindingID, []db.TrafficRef{{TrafficID: "goal-proof", Role: "proof"}}); err != nil {
+		t.Fatal(err)
+	}
+	workflowCall(t, ctx, prove, proof, true)
+	versioned := map[string]any{"finding_id": finding.NodeID, "report": "## Current local proof", "evidence_version": int64(1)}
+	workflowCall(t, ctx, s.toolUpdateFindingReport(), versioned, false)
+	workflowCall(t, ctx, prove, proof, false)
+	if !planner.GoalMet {
+		t.Fatal("last goal should complete after report save")
+	}
+	seedServerEvidenceFlow(t, s, "goal-later", []byte("later local proof"))
+	if _, err := s.evidenceStore().Bind(ctx, finding.FindingID, []db.TrafficRef{{TrafficID: "goal-later", Role: "supporting"}}); err != nil {
+		t.Fatal(err)
+	}
+	complete, err := s.m.pg.FindingWorkflowComplete(*row.TaskID, finding.NodeID)
+	if err != nil || complete {
+		t.Fatal("later evidence must stale the previous report", complete, err)
+	}
+	workflowCall(t, ctx, s.toolUpdateFindingReport(), versioned, true)
+}
+
+func TestAwaitingConditionPausesWithGoalsOpenOnlyAfterReportingSettles(t *testing.T) {
+	s, finding, _ := trafficEvidenceServer(t)
+	row, err := s.m.pg.GetFinding(finding.FindingID)
+	if err != nil || row == nil || row.TaskID == nil {
+		t.Fatal(row, err)
+	}
+	task, ok := s.m.Task(strconv.FormatInt(*row.TaskID, 10))
+	if !ok {
+		t.Fatal("task missing")
+	}
+	goalID, err := task.Store.AddNode(db.KindGoal, map[string]any{"text": "Await external proof", "completion": "finding_workflow"}, 0, "open", "test", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if s.engine.pauseAwaitingCondition(task, "service returns evidence") {
+		t.Fatal("pending report must prevent pause")
+	}
+	workflowCall(t, context.Background(), s.toolUpdateFindingReport(), map[string]any{"finding_id": finding.NodeID, "report": "## Existing finding", "evidence_version": int64(0)}, false)
+	intentID, err := task.Store.AddNode(db.KindIntent, map[string]any{"summary": "worker still running"}, 0, "open", "planner", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if s.engine.pauseAwaitingCondition(task, "service returns evidence") {
+		t.Fatal("active worker intent must prevent pause")
+	}
+	if err := task.Store.SetNodeState(intentID, "done"); err != nil {
+		t.Fatal(err)
+	}
+	if !s.engine.pauseAwaitingCondition(task, "service returns evidence") {
+		t.Fatal("settled task should enter paused state")
+	}
+	stored, err := s.m.pg.GetTask(*row.TaskID)
+	if err != nil || stored == nil || !stored.Paused || stored.Status == "done" {
+		t.Fatalf("awaiting task state: %+v err=%v", stored, err)
+	}
+	goal, err := task.Store.GetNode(goalID)
+	if err != nil || goal == nil || goal.State != "open" {
+		t.Fatalf("awaiting condition must retain unmet goal: %+v err=%v", goal, err)
+	}
+}
+
 func workflowTool(t *testing.T, tools []actool.CoreTool, name string) actool.CoreTool {
 	t.Helper()
 	for _, tool := range tools {
@@ -93,7 +177,7 @@ func TestFindingWorkflowAutoHintToPlannerAndSetting(t *testing.T) {
 	ts.SetNotifyFinding(func(int64, string) { notices++ })
 	tools, def, cleanup := agent.AugmentTools(ctx, "planner", ts.PlannerTools())
 	defer cleanup()
-	if !strings.Contains(def.FindingGuidance, "evidence_hint_id") || !strings.Contains(def.FindingGuidance, "取消 Worker") {
+	if !strings.Contains(def.FindingGuidance, "evidence_hint_id") || !strings.Contains(def.FindingGuidance, "cancel workers") {
 		t.Fatal("Planner missed runtime guidance")
 	}
 	report := workflowTool(t, tools, "report_finding")
@@ -131,7 +215,7 @@ func TestFindingWorkflowAutoHintToPlannerAndSetting(t *testing.T) {
 	}
 	workflowCall(t, ctx, s.toolGetFindingTraffic(), map[string]any{"finding_id": recorded.FindingID}, false)
 	wrong := workflowCall(t, ctx, s.toolGetFindingTraffic(), map[string]any{"finding_id": int64(900000000000000000)}, true)
-	if !strings.Contains(wrong, "独立漏洞记录 ID") {
+	if !strings.Contains(wrong, "independent finding-record IDs") {
 		t.Fatal("ambiguous ID error", wrong)
 	}
 	input["finding_id"] = recorded.FindingID
@@ -175,7 +259,7 @@ func TestFindingWorkflowAutoHintToPlannerAndSetting(t *testing.T) {
 	if err := json.Unmarshal([]byte(strings.SplitN(offResult, "\n", 2)[1]), &offRecord); err != nil {
 		t.Fatal(err)
 	}
-	if offRecord.FindingID <= 0 || len(offRecord.Traffic.Bindings) != 0 || offRecord.EvidenceStatus != "not_bound" || !strings.Contains(offRecord.EvidenceNote, "已关闭") {
+	if offRecord.FindingID <= 0 || len(offRecord.Traffic.Bindings) != 0 || offRecord.EvidenceStatus != "not_bound" || !strings.Contains(offRecord.EvidenceNote, "disabled") {
 		t.Fatal("disabled binding discarded finding or bound evidence", offResult)
 	}
 	workflowCall(t, ctx, report, map[string]any{"vulnclass": "TCP", "severity": "low", "summary": "no packet needed"}, false)
@@ -246,7 +330,7 @@ func TestFindingWorkflowMigrationPreservesUserConfiguration(t *testing.T) {
 	}
 	search, _ := pg.GetTool("traffic_search")
 	get, _ := pg.GetTool("traffic_get")
-	if !strings.Contains(search.Description, "支持裸主机、主机:端口或完整 URL") {
+	if !strings.Contains(search.Description, "accepts a bare host, host:port, or full URL") {
 		t.Fatal("traffic_search description migration missing host/port guidance")
 	}
 	if search.Enabled || !contains(search.Agents, "reporter") || get.Enabled || len(get.Agents) != 1 || get.Agents[0] != "custom-agent" {
@@ -277,7 +361,7 @@ func TestFindingWorkflowReporterBindsBeforeWritingReport(t *testing.T) {
 	seedServerEvidenceFlow(t, s, "reporter-baseline", []byte("local normal response"))
 	tools, def, cleanup := agent.AugmentTools(ctx, "reporter", nil)
 	defer cleanup()
-	if !strings.Contains(def.FindingGuidance, "报告前自动关联流量") || !strings.Contains(def.FindingGuidance, "绑定成功后重新调用") {
+	if !strings.Contains(def.FindingGuidance, "Automatic traffic association before reporting") || !strings.Contains(def.FindingGuidance, "After successful binding, call get_finding_traffic again") {
 		t.Fatal("reporter did not receive binding workflow")
 	}
 	for _, name := range []string{"traffic_search", "traffic_get", "get_task_worker_trace", "get_task_node_detail", "bind_finding_traffic", "get_finding_traffic", "update_finding_report"} {

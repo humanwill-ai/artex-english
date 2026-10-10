@@ -1,0 +1,152 @@
+{
+  "version": 2,
+  "baseline": "c436bfad4400f70a2f25a159ca2bc9fe42a88ca1",
+  "authorization": {
+    "scope": "Owner requested genuinely English application-owned internal prompts and standard tests, superseding the original text-preservation boundary. Licensing, source catalogs, schemas, technical identifiers, policy meaning, and raw/custom data remain protected.",
+    "review_required": "Any change to active reviewed hashes requires a semantic review and explicit manifest edit; historical hashes must not be overwritten."
+  },
+  "historical_boundaries": {
+    "files": {
+      "LICENSE": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "web/LICENSE": "d4f2f6115637639342e10780a8c4ebf4ea54239662aa362554ede12fe1d0beaa",
+      "web/messages/ko.json": "09193b8c8062a3e8c3da1e983cc0245a3f3d5e752f870c308d47741779614858",
+      "web/messages/zh.json": "653cf33eedce70392984f3bf21fad69e70af8bbabf3f2f7152c79bcd49bb6908",
+      "db/schema.sql": "17f0f9e28e1a587f48e8723dfc84b5daf25887642e54b12801f95f1fcaea4002",
+      "agent/constraints.go": "2b0fa0c8bb9cbd7fe9295db08c0180fbfb730ce3119eb20d049a574cd6c38245",
+      "guard/guard.go": "1a29bad19e9616f83c8c05ff9da1c12540fab1535174198a9ea44815a280c5a0",
+      "intercept/prompt.go": "50fe218c49bc634a97ecaa9b13bf4ce1ea822a00183f193e73e52b8b5f3a00e7"
+    },
+    "templates": {
+      "agent/promptcatalog.go::autoDefaultTmpl": "b2a71b82243607337b19f0642317fed88c144d536412d80eaaf90807f2905a1d",
+      "agent/promptcatalog.go::pentestDefaultTmpl": "a54bd5713b1c121d0f2ff3a72e0304820b1368c4b4b8159d5d651895663ac652",
+      "agent/promptcatalog.go::DefaultAssistantPrompt": "a179c990bff1ab4e0a6f326945a1c44036ef4c8a54c7c5b635965f6cefdc9f0a",
+      "agent/promptcatalog.go::ReporterDefaultPrompt": "77f74afbc6ba1090a898c4e2cbf9dcadaa11736a44e25e8b05fb59ec7679d413",
+      "agent/worker.go::workerDefaultTmpl": "80fbb1c610dd57e266c20b9145793339eee540b809f6db8f5336261b45879f08",
+      "agent/planner.go::plannerDefaultTmpl": "14e163f4a44da9fee20a214048a607adc3659b2025275569eb512532ca8c15d5",
+      "agent/mainagent.go::mainAgentDefaultTmpl": "12bb69ee0886c4fb9beb936d882021a91104860f1da69a5e3eda3d9e345cd399",
+      "agent/goals.go::goalsDefaultTmpl": "72a7a0159443b41dde29dfba8a3de6a2c8a15b273935495a7b88561fa708aa68",
+      "agent/goals.go::goalsScopeTail": "717596a0ab92129b3d229d46dee30ef75913f10eebde8fe68b5ead4588abc683"
+    },
+    "hash_semantics": "Original v1 manifest retained exactly. Template hashes covered the first raw-string segment selected by the old regex; ReporterDefaultPrompt therefore did not cover its trailing concatenated sections."
+  },
+  "files": {
+    "LICENSE": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+    "web/LICENSE": "d4f2f6115637639342e10780a8c4ebf4ea54239662aa362554ede12fe1d0beaa",
+    "web/messages/ko.json": "09193b8c8062a3e8c3da1e983cc0245a3f3d5e752f870c308d47741779614858",
+    "web/messages/zh.json": "653cf33eedce70392984f3bf21fad69e70af8bbabf3f2f7152c79bcd49bb6908",
+    "db/schema.sql": "17f0f9e28e1a587f48e8723dfc84b5daf25887642e54b12801f95f1fcaea4002"
+  },
+  "reviewed_files": {
+    "agent/constraints.go": {
+      "sha256": "6636bea825562f83699c812929d24451d2e120f9634f40f9c0ba8259840c97be",
+      "historical_sha256": "2b0fa0c8bb9cbd7fe9295db08c0180fbfb730ce3119eb20d049a574cd6c38245",
+      "review": "Translated constraint framing only; allow/deny data and authorization priority preserved."
+    },
+    "guard/guard.go": {
+      "sha256": "dcafdacbb48ef31ff386d5c48a7ef3cfc276d670eb5c467570eac1c67f4321e8",
+      "historical_sha256": "1a29bad19e9616f83c8c05ff9da1c12540fab1535174198a9ea44815a280c5a0",
+      "review": "Translated reviewer policy only; execution/scope controls preserved."
+    },
+    "intercept/prompt.go": {
+      "sha256": "e6b110c1352c9265c2a1e9e2ab0271b45461d5494bff29a01b755abd6ecd09b0",
+      "historical_sha256": "50fe218c49bc634a97ecaa9b13bf4ce1ea822a00183f193e73e52b8b5f3a00e7",
+      "review": "English default interception instructions; legacy verdict triplet accepted and decision enums unchanged. Prose brevity guidance becomes 120 English words instead of 120 Chinese characters; the existing 2400-byte parser cap is unchanged."
+    }
+  },
+  "templates": {
+    "agent/promptcatalog.go::autoDefaultTmpl": {
+      "sha256": "aee469acd9c9cd32350304cbeaa34605b04f2213899d751b1185d3049c0b5ceb",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "b2a71b82243607337b19f0642317fed88c144d536412d80eaaf90807f2905a1d",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/promptcatalog.go::pentestDefaultTmpl": {
+      "sha256": "9c92b8049c1a46641ee14d85ff65db145fdfea8724f2950b43fff6d60414fd06",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "a54bd5713b1c121d0f2ff3a72e0304820b1368c4b4b8159d5d651895663ac652",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/promptcatalog.go::DefaultAssistantPrompt": {
+      "sha256": "5f0420ed7047b959ebcefea85df2b0863a714c7f0eb5781e09f4b606ea90ad64",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "a179c990bff1ab4e0a6f326945a1c44036ef4c8a54c7c5b635965f6cefdc9f0a",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/promptcatalog.go::ReporterDefaultPrompt": {
+      "sha256": "e7d263fd3b7e8417014320c8688d9bd183c96d818969887ae32053ad63e36b92",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "77f74afbc6ba1090a898c4e2cbf9dcadaa11736a44e25e8b05fb59ec7679d413",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/worker.go::workerDefaultTmpl": {
+      "sha256": "ec2d4d553c8e6a80d2d818b31b4b047486b0b329e61a3969c687674d9cee8a6c",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "80fbb1c610dd57e266c20b9145793339eee540b809f6db8f5336261b45879f08",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/planner.go::plannerDefaultTmpl": {
+      "sha256": "19d6afdfd3219b53fb94d7bfb533705aa55114bf66e8a3b69565e4d4bc5da74b",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "14e163f4a44da9fee20a214048a607adc3659b2025275569eb512532ca8c15d5",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/mainagent.go::mainAgentDefaultTmpl": {
+      "sha256": "642368036d3c30dc543737ecfa5c6e60e260729cfc4a7835ce1b5acfd3ba0f68",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "12bb69ee0886c4fb9beb936d882021a91104860f1da69a5e3eda3d9e345cd399",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/goals.go::goalsDefaultTmpl": {
+      "sha256": "2f310a115aff62b6e338f999e00948d286d464d8ac4b9ce572a7d353a565d248",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "72a7a0159443b41dde29dfba8a3de6a2c8a15b273935495a7b88561fa708aa68",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/goals.go::goalsScopeTail": {
+      "sha256": "d3e6c7fe952c889426b9b742396d7d72ba0c65f3b5a4d29ddb7b0f0dfdf492d1",
+      "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
+      "historical_sha256": "717596a0ab92129b3d229d46dee30ef75913f10eebde8fe68b5ead4588abc683",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+    },
+    "agent/worker.go::settleWrapUpPrompt": {
+      "sha256": "77909c8d8995752ef9a77c58215366113199e2f5a0e28406f68ce94029a50b80",
+      "hash_semantics": "Complete decoded Go string constant",
+      "review": "English settlement instructions retain stop/persist policy, per-run versus task-timeout distinction, and summary requirements."
+    },
+    "agent/wrapup.go::plannerWrapUpDefault": {
+      "sha256": "e80538063fd9972251c82f348b8853066319d40db48f9e1700ef368e262de2fe",
+      "hash_semantics": "Complete decoded Go string constant",
+      "review": "English settlement instructions retain stop/persist policy, per-run versus task-timeout distinction, and summary requirements."
+    },
+    "agent/wrapup.go::mainAgentWrapUpDefault": {
+      "sha256": "611723bf2db4d94c979af4248cc19537197ec92e26eeb6789194d24dc2fa8146",
+      "hash_semantics": "Complete decoded Go string constant",
+      "review": "English settlement instructions retain stop/persist policy, per-run versus task-timeout distinction, and summary requirements."
+    },
+    "agent/wrapup.go::genericWrapUpDefault": {
+      "sha256": "e4fbef6280344d6d78a6d176833341e8ece3e7c595a00a8abc139111d5ac922e",
+      "hash_semantics": "Complete decoded Go string constant",
+      "review": "English settlement instructions retain stop/persist policy, per-run versus task-timeout distinction, and summary requirements."
+    },
+    "agent/wrapup.go::workerTaskTimeoutDefault": {
+      "sha256": "3bda1bd6dfdc34e11462b89473e1b916696198ae5870714b9cf438f1d71b898e",
+      "hash_semantics": "Complete decoded Go string constant",
+      "review": "English settlement instructions retain stop/persist policy, per-run versus task-timeout distinction, and summary requirements."
+    },
+    "agent/wrapup.go::plannerTaskTimeoutDefault": {
+      "sha256": "88f5be01c2fa16fbb8e89796ec6cd2b447f58b3416a0d738c2925da19a6af6d3",
+      "hash_semantics": "Complete decoded Go string constant",
+      "review": "English settlement instructions retain stop/persist policy, per-run versus task-timeout distinction, and summary requirements."
+    }
+  },
+  "compatibility_files": {
+    "server/legacy_prompt_defaults.json": {
+      "sha256": "cde896c7dd46fac7f0acd9d2470a244c67f5f1551e20aa6bed8537a6d94812f8",
+      "review": "Exact historical defaults used only for pristine-seed migration matching; custom records must remain untouched."
+    },
+    "server/legacy_tool_defaults.json": {
+      "sha256": "7842fa46ea3292416f32a5a506137850a55e2ade282a1a162f3b80250c7568c8",
+      "review": "Exact historical defaults used only for pristine-seed migration matching; custom records must remain untouched."
+    }
+  }
+}

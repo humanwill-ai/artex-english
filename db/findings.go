@@ -759,6 +759,53 @@ type FindingMeta struct {
 	AssetIDs []int64
 }
 
+// FindingWorkflowComplete checks the persisted deliverables for one finding node
+// in one task. The report must describe the current bound evidence version.
+func (d *DB) FindingWorkflowComplete(taskID, nodeID int64) (bool, error) {
+	var complete bool
+	err := d.QueryRow(`SELECT EXISTS (
+		SELECT 1 FROM findings f
+		WHERE f.task_id=$1 AND f.node_id=$2
+		AND EXISTS (SELECT 1 FROM finding_traffic_bindings b WHERE b.finding_id=f.id)
+		AND length(trim(COALESCE(f.report,''))) > 0
+		AND f.report_evidence_version=f.evidence_version
+	)`, taskID, nodeID).Scan(&complete)
+	return complete, err
+}
+
+func (a *AssetStore) FindingWorkflowComplete(taskID, nodeID int64) (bool, error) {
+	return a.db.FindingWorkflowComplete(taskID, nodeID)
+}
+
+// GoalHasConfirmedFinding reports a same-task confirmed finding explicitly
+// linked as proof of this goal. Such a record contradicts a negative proof.
+func (d *DB) GoalHasConfirmedFinding(taskID, goalID int64) (bool, error) {
+	var exists bool
+	err := d.QueryRow(`SELECT EXISTS (
+		SELECT 1 FROM findings f
+		JOIN exploration_edges e ON e.src_id=f.node_id AND e.rel='proves'
+		WHERE f.task_id=$1 AND e.dst_id=$2
+	)`, taskID, goalID).Scan(&exists)
+	return exists, err
+}
+
+func (a *AssetStore) GoalHasConfirmedFinding(taskID, goalID int64) (bool, error) {
+	return a.db.GoalHasConfirmedFinding(taskID, goalID)
+}
+
+// PendingFindingReport includes reporters that have not yet saved a report and
+// reports made stale by a later evidence binding.
+func (d *DB) PendingFindingReport(taskID int64) (bool, error) {
+	var pending bool
+	err := d.QueryRow(`SELECT EXISTS (SELECT 1 FROM findings WHERE task_id=$1
+		AND (length(trim(COALESCE(report,'')))=0 OR report_evidence_version<>evidence_version))`, taskID).Scan(&pending)
+	return pending, err
+}
+
+func (a *AssetStore) PendingFindingReport(taskID int64) (bool, error) {
+	return a.db.PendingFindingReport(taskID)
+}
+
 // FindingMetaByNodeID maps a task's finding node ids to their standalone-row
 // metadata (status + anchored asset ids) via the asset store, so callers holding
 // only an AssetStore (e.g. the agent ToolSet) can reach it without a raw *DB.

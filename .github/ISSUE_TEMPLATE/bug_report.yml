@@ -1,4 +1,4 @@
-name: 🐛 버그 신고
+name: 🐛 버그 신고 (한국어 · 원본 양식)
 description: 동작이 기대와 다르거나 오류가 발생하는 문제를 신고합니다.
 title: "[버그] "
 labels: ["bug"]
@@ -6,8 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
+        **HumanWill English edition:** this form retains wording from the original Korean edition. Current localization targets English; follow [the current contribution policy](https://github.com/humanwill-ai/artex-en/blob/main/CONTRIBUTING.en.md).
         신고해 주셔서 고맙습니다. 아래 항목을 채워 주시면 재현과 수정이 빨라집니다.
-        **보안 취약점은 이 템플릿이 아니라 [SECURITY.md](https://github.com/jiwoochris/artex-ko/security/policy)의 비공개 절차로 신고해 주십시오.**
+        **보안 취약점은 이 템플릿이 아니라 [SECURITY.md](https://github.com/humanwill-ai/artex-en/blob/main/SECURITY.en.md)의 비공개 절차로 신고해 주십시오.**
   - type: checkboxes
     id: preflight
     attributes:

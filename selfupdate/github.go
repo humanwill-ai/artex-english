@@ -12,7 +12,7 @@ import (
 
 // Repo 是发布源。写死而不是做成配置项：更新源可配等于给任何能改配置的人一条
 // 远程代码执行通道，对一个渗透测试平台来说这个口子开不得。
-const Repo = "Autumn-27/artex"
+const Repo = "humanwill-ai/artex-en"
 
 // latestURL 是 GitHub 的"最新正式版"接口。它会自动跳过 prerelease 和 draft。
 const latestURL = "https://api.github.com/repos/" + Repo + "/releases/latest"
@@ -66,7 +66,7 @@ func NewClient(proxy string) *http.Client {
 		Timeout:   30 * time.Minute, // 下载整包，不能按请求级超时卡死
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			if len(via) >= 10 {
-				return fmt.Errorf("리다이렉트 횟수가 너무 많습니다")
+				return fmt.Errorf("Too many redirects")
 			}
 			return checkURL(req.URL)
 		},
@@ -76,10 +76,10 @@ func NewClient(proxy string) *http.Client {
 // checkURL 强制 https + 域名白名单。
 func checkURL(u *url.URL) error {
 	if u.Scheme != "https" {
-		return fmt.Errorf("HTTPS 가 아닌 주소를 거부합니다: %s", u.Scheme+"://"+u.Host)
+		return fmt.Errorf("Non-HTTPS address refused: %s", u.Scheme+"://"+u.Host)
 	}
 	if !allowedHosts[strings.ToLower(u.Hostname())] {
-		return fmt.Errorf("GitHub 도메인이 아닌 주소를 거부합니다: %s", u.Hostname())
+		return fmt.Errorf("Non-GitHub host refused: %s", u.Hostname())
 	}
 	return nil
 }
@@ -98,26 +98,26 @@ func FetchLatest(ctx context.Context, c *http.Client) (*Release, error) {
 
 	resp, err := c.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("GitHub 에 접속하지 못했습니다(시스템 설정에서 전역 프록시를 설정할 수 있습니다): %w", err)
+		return nil, fmt.Errorf("Could not connect to GitHub (a global proxy can be configured in system settings): %w", err)
 	}
 	defer resp.Body.Close()
 
 	switch {
 	case resp.StatusCode == http.StatusForbidden, resp.StatusCode == http.StatusTooManyRequests:
 		// 未认证的 GitHub API 是每 IP 每小时 60 次，共用出口 IP 时很容易撞上。
-		return nil, fmt.Errorf("GitHub API 요청 제한에 걸렸습니다(시간당 60회). 잠시 후 다시 시도하세요")
+		return nil, fmt.Errorf("GitHub API rate limit reached (60 requests per hour). Try again later")
 	case resp.StatusCode == http.StatusNotFound:
-		return nil, fmt.Errorf("저장소 %s 에 아직 정식 릴리스가 없습니다", Repo)
+		return nil, fmt.Errorf("No release is available from %s (the repository may be private or have no published releases)", Repo)
 	case resp.StatusCode != http.StatusOK:
-		return nil, fmt.Errorf("GitHub 응답 코드 %d", resp.StatusCode)
+		return nil, fmt.Errorf("GitHub returned status %d", resp.StatusCode)
 	}
 
 	var rel Release
 	if err := json.NewDecoder(resp.Body).Decode(&rel); err != nil {
-		return nil, fmt.Errorf("Release 해석 실패: %w", err)
+		return nil, fmt.Errorf("Could not parse the release: %w", err)
 	}
 	if strings.TrimSpace(rel.TagName) == "" {
-		return nil, fmt.Errorf("Release 에 tag 가 없습니다")
+		return nil, fmt.Errorf("The release has no tag")
 	}
 	return &rel, nil
 }

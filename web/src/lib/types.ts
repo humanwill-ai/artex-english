@@ -1306,6 +1306,7 @@ export interface AssetInterceptRule {
 }
 
 export interface InterceptPending {
+  display_reason?: string; // Human-readable translation; reason remains raw.
   decision_source?: "rule" | "model" | "unknown" | "";
   id: number;
   rule_id?: number;
@@ -1491,6 +1492,7 @@ export interface InterceptAudit {
   execution_ended_at?: string;
 }
 export interface InterceptDetail extends InterceptApprovalRow {
+  display_decision_reason?: string;
   audit: InterceptAudit | null;
 }
 

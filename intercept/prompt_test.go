@@ -73,3 +73,29 @@ func TestParseVerdictKeepsCompleteChineseExplanation(t *testing.T) {
 		t.Fatal("accepted unbounded explanation")
 	}
 }
+
+func TestParseVerdictEnglishContractAndLegacyParity(t *testing.T) {
+	for _, action := range []string{"allow", "ask", "deny"} {
+		for _, reason := range []string{
+			"Actual operation: Read a file; Consequence if successful: Return its contents; Matched rule: A5",
+			"实际操作：读取文件；成功后的后果：返回内容；命中规则：A5",
+		} {
+			raw, _ := json.Marshal(map[string]string{"decision": action, "comment": reason})
+			if got := ParseVerdict(string(raw)); got.Action != action || got.Reason != reason {
+				t.Fatalf("lost %s verdict or original explanation: %+v", action, got)
+			}
+		}
+	}
+	for _, reason := range []string{
+		"Actual operation: ; Consequence if successful: Return contents; Matched rule: A5",
+		"Actual operation: Read file; Consequence if successful: ; Matched rule: A5",
+		"Actual operation: Read file; Consequence if successful: Return contents; Matched rule: ",
+		"Actual operation: Read file; Matched rule: A5",
+		"Actual operation: Read file；成功后的后果：Return contents；命中规则：A5",
+	} {
+		raw, _ := json.Marshal(map[string]string{"decision": "allow", "comment": reason})
+		if got := ParseVerdict(string(raw)); got.Action != "" {
+			t.Fatalf("accepted incomplete or mixed-format explanation: %q", reason)
+		}
+	}
+}

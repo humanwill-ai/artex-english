@@ -6,8 +6,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for the report. Filling in the fields below helps us reproduce and fix it faster.
-        **Do not use this template for security vulnerabilities. Report them through the private process in [SECURITY.en.md](https://github.com/jiwoochris/artex-ko/blob/main/SECURITY.en.md).**
+        Report a problem with the HumanWill English edition. Use synthetic or redacted examples.
+        **Do not use this template for security vulnerabilities. Report them through the private process in [SECURITY.en.md](https://github.com/humanwill-ai/artex-en/blob/main/SECURITY.en.md).**
   - type: checkboxes
     id: preflight
     attributes:
@@ -22,7 +22,7 @@ body:
     attributes:
       label: What happened
       description: Describe both the expected behavior and the actual behavior.
-      placeholder: "e.g. Detection results should be in Korean, but they are printed in Chinese."
+      placeholder: "e.g. A task label should be English, but still appears in Korean."
     validations:
       required: true
   - type: textarea
@@ -62,8 +62,8 @@ body:
     id: version
     attributes:
       label: Version
-      description: Enter the release tag or commit hash.
-      placeholder: "e.g. v2.2.0 or b45ba04"
+      description: Enter the commit hash, or a release tag if one exists. This edition has no published release yet.
+      placeholder: "e.g. the output of git rev-parse --short HEAD"
     validations:
       required: true
   - type: input
@@ -71,6 +71,6 @@ body:
     attributes:
       label: Environment
       description: OS, whether you use Docker, the LLM model, and so on.
-      placeholder: "e.g. macOS 15 / Docker Compose / claude-opus-4-8"
+      placeholder: "e.g. macOS / local source build / configured model identifier"
     validations:
       required: false

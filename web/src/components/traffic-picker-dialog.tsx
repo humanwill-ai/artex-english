@@ -22,6 +22,7 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { FORMAT_LOCALE } from "@/i18n/config";
 import { api } from "@/lib/api";
 import type { FindingTrafficBinding, TrafficResp } from "@/lib/types";
 
@@ -217,7 +218,7 @@ export function TrafficPickerDialog({
                       {alreadyBound.has(e.id) ? <Badge variant="secondary">{t("picker.bound")}</Badge> : null}
                     </TableCell>
                     <TableCell className="whitespace-nowrap text-xs">
-                      {new Date(e.ts).toLocaleString("ko-KR")}
+                      {new Date(e.ts).toLocaleString(FORMAT_LOCALE)}
                     </TableCell>
                     <TableCell>{e.status}</TableCell>
                     <TableCell>

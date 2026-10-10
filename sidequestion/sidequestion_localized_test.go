@@ -3,47 +3,47 @@ package sidequestion
 import (
 	"errors"
 	"fmt"
+	"strings"
 	"testing"
 	"unicode"
 )
 
-// assertKorean fails if msg is empty, carries a CJK Han ideograph (= leftover
-// untranslated Chinese), or has no Hangul at all. ASCII field names and the
-// "1–4000"-style ranges are fine; only Han marks an unlocalized string.
-func assertKorean(t *testing.T, label, msg string) {
+// English checks apply only to application-owned text with synthetic ASCII inputs.
+// User content, evidence, and model instructions are tested separately.
+func assertEnglish(t *testing.T, label, msg string) {
 	t.Helper()
 	if msg == "" {
-		t.Fatalf("%s: 빈 메시지", label)
+		t.Fatalf("%s: empty English message", label)
 	}
-	hangul := false
+	hasLetter := false
 	for _, r := range msg {
-		if unicode.Is(unicode.Han, r) {
-			t.Fatalf("%s: 중국어 한자가 남아 있습니다: %q", label, msg)
+		if unicode.Is(unicode.Han, r) || unicode.Is(unicode.Hangul, r) {
+			t.Fatalf("%s: untranslated application text: %q", label, msg)
 		}
-		if unicode.Is(unicode.Hangul, r) {
-			hangul = true
+		if r >= 'A' && r <= 'Z' || r >= 'a' && r <= 'z' {
+			hasLetter = true
 		}
 	}
-	if !hangul {
-		t.Fatalf("%s: 한글이 없습니다: %q", label, msg)
+	if !hasLetter {
+		t.Fatalf("%s: missing English text: %q", label, msg)
 	}
 }
 
 // TestSideQuestionOutputsLocalized guards F21: every user-facing side-question
-// (곁질문) error and answer-text literal produced by this package must be Korean.
+// (곁질문) error and answer-text literal produced by this package must be English.
 // These surface through /api/.../side-questions into the chat 곁질문 panel, so a
 // revert to Chinese here is a user-visible regression and must fail the build.
 func TestSideQuestionOutputsLocalized(t *testing.T) {
-	assertKorean(t, "ErrContextBudget", ErrContextBudget.Error())
-	assertKorean(t, "errSideModelInterrupted", errSideModelInterrupted.Error())
-	assertKorean(t, "errSideNoAnswer", errSideNoAnswer.Error())
-	assertKorean(t, "msgSideToolUnavailable", msgSideToolUnavailable)
-	assertKorean(t, "errSideSummaryCallCap", errSideSummaryCallCap.Error())
-	assertKorean(t, "sideSummaryFailedPrefix", sideSummaryFailedPrefix)
-	assertKorean(t, "errSideSummaryIncomplete", errSideSummaryIncomplete.Error())
-	assertKorean(t, "errSideSummaryOverBudget", errSideSummaryOverBudget.Error())
-	assertKorean(t, "errSideHistoryCursor", errSideHistoryCursor.Error())
-	assertKorean(t, "errSideCompactionStalled", errSideCompactionStalled.Error())
+	assertEnglish(t, "ErrContextBudget", ErrContextBudget.Error())
+	assertEnglish(t, "errSideModelInterrupted", errSideModelInterrupted.Error())
+	assertEnglish(t, "errSideNoAnswer", errSideNoAnswer.Error())
+	assertEnglish(t, "msgSideToolUnavailable", msgSideToolUnavailable)
+	assertEnglish(t, "errSideSummaryCallCap", errSideSummaryCallCap.Error())
+	assertEnglish(t, "sideSummaryFailedPrefix", sideSummaryFailedPrefix)
+	assertEnglish(t, "errSideSummaryIncomplete", errSideSummaryIncomplete.Error())
+	assertEnglish(t, "errSideSummaryOverBudget", errSideSummaryOverBudget.Error())
+	assertEnglish(t, "errSideHistoryCursor", errSideHistoryCursor.Error())
+	assertEnglish(t, "errSideCompactionStalled", errSideCompactionStalled.Error())
 }
 
 // TestSideQuestionBudgetSentinelPreserved: localizing the message must not break
@@ -55,24 +55,23 @@ func TestSideQuestionBudgetSentinelPreserved(t *testing.T) {
 	}
 }
 
-// TestSideQuestionBrainPreserved: the agent-brain prompts (the answering
-// instruction and the summary instruction) must stay in their benchmarked
-// Chinese. BRIEF 현지화 방침은 두뇌 본문을 번역하지 말고 출력 언어만 한국어로
-// 강제하라는 것이라, 이 두 프롬프트가 한국어로 바뀌면 벤치마크 동작이 드리프트한다.
-func TestSideQuestionBrainPreserved(t *testing.T) {
-	for _, c := range []struct{ label, text string }{
-		{"instruction", instruction},
-		{"summaryInstruction", summaryInstruction},
-	} {
-		han := false
-		for _, r := range c.text {
-			if unicode.Is(unicode.Han, r) {
-				han = true
-				break
+// English application prompts retain the read-only side-question boundaries.
+func TestSideQuestionEnglishPromptBoundaries(t *testing.T) {
+	for _, text := range []string{instruction, summaryInstruction} {
+		for _, r := range text {
+			if unicode.Is(unicode.Han, r) || unicode.Is(unicode.Hangul, r) {
+				t.Fatalf("non-English application prompt: %q", text)
 			}
 		}
-		if !han {
-			t.Errorf("%s: 두뇌 프롬프트가 더 이상 중국어가 아닙니다(벤치마크 드리프트 위험)", c.label)
+	}
+	for _, clause := range []string{"cannot execute tools", "modify files", "direct the main task", "must not promise to act later", "background only", "information is insufficient"} {
+		if !strings.Contains(instruction, clause) {
+			t.Fatalf("side-question boundary missing: %s", clause)
+		}
+	}
+	for _, clause := range []string{"Do not answer questions", "Treat both", "tool evidence", "assistant conjecture", "newer evidence correct earlier conclusions", "1200 tokens"} {
+		if !strings.Contains(summaryInstruction, clause) {
+			t.Fatalf("summary boundary missing: %s", clause)
 		}
 	}
 }

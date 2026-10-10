@@ -556,11 +556,12 @@ type AgentDTO struct {
 }
 
 func agentDTO(a *db.Agent) AgentDTO {
+	name, description := agentDisplayText(a)
 	return AgentDTO{
 		ID:                 i64s(a.ID),
 		Key:                a.Key,
-		Name:               a.Name,
-		Description:        a.Description,
+		Name:               name,
+		Description:        description,
 		Role:               a.Role,
 		Builtin:            a.Builtin,
 		Enabled:            a.Enabled,

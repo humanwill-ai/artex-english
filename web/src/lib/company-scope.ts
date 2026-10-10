@@ -149,21 +149,21 @@ export function companyScopeRuleError(rule: CompanyScopeRule): CompanyScopeError
 export function companyScopeErrorText(code: CompanyScopeErrorCode | "" | undefined): string {
   switch (code) {
     case "empty":
-      return "범위 값을 입력해 주세요";
+      return "Enter a scope value";
     case "tooLong":
-      return `최대 ${MAX_COMPANY_SCOPE_VALUE_LENGTH}자까지 입력할 수 있습니다`;
+      return `Use at most ${MAX_COMPANY_SCOPE_VALUE_LENGTH} characters`;
     case "domainSpace":
-      return "공백 없이 유효한 도메인 또는 URL을 입력해 주세요";
+      return "Enter a valid domain or URL without spaces";
     case "domainInvalid":
-      return "유효한 도메인 또는 URL을 입력해 주세요";
+      return "Enter a valid domain or URL";
     case "ipInvalid":
-      return "유효한 IP를 입력해 주세요";
+      return "Enter a valid IP address";
     case "cidrInvalid":
-      return "유효한 CIDR 대역을 입력해 주세요";
+      return "Enter a valid CIDR range";
     case "cidrPrefixV4":
-      return "IPv4 대역 프리픽스는 /16 ~ /32 범위여야 합니다";
+      return "IPv4 prefixes must be between /16 and /32";
     case "cidrPrefixV6":
-      return "IPv6 대역 프리픽스는 /32 ~ /128 범위여야 합니다";
+      return "IPv6 prefixes must be between /32 and /128";
     default:
       return "";
   }
