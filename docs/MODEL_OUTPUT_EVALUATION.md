@@ -355,9 +355,7 @@ A paired local workflow comparison covered scope, approval, and
 uncertainty checks. These are newly assistant-authored synthetic development
 tests, not inherited upstream benchmarks. Both checkouts receive the same test
 source, English task descriptions, tool restrictions, fixtures, and Luna settings.
-The baseline is `c436bfad4400f70a2f25a159ca2bc9fe42a88ca1`; the English source is
-`d3812001896e7cfdfa7e1802159294e644b03914`. Application prompts and tool descriptions
-come from each edition's actual implementation.
+The baseline application code matches imported upstream revision `7333fa47b9bdd89b4973992b2e15d9c393539b8c`; the English comparison used an earlier development snapshot before later workflow repairs. That exact English snapshot is retained outside this public source history, so the historical run cannot be reproduced from this archive alone. Application prompts and tool descriptions came from each edition's actual implementation.
 
 The workflow harness uses real goal decomposition, planner, worker, reporter,
 database, evidence-store, and goal-proof code in a bounded sequential chain.

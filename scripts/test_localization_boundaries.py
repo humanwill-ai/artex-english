@@ -112,6 +112,27 @@ class BoundaryTests(unittest.TestCase):
         self.assertEqual(history["templates"]["agent/promptcatalog.go::ReporterDefaultPrompt"], "77f74afbc6ba1090a898c4e2cbf9dcadaa11736a44e25e8b05fb59ec7679d413")
         self.assertIn("first raw-string segment", history["hash_semantics"])
 
+    def test_responsible_use_catalog_review_keeps_original_hashes(self):
+        import hashlib
+        manifest = json.loads((HERE / "localization-boundaries.json").read_text())
+        self.assertIn("responsible_use_notice", manifest["authorization"])
+        for locale in ("ko", "zh"):
+            filename = f"web/messages/{locale}.json"
+            review = manifest["reviewed_notice_catalogs"][filename]
+            self.assertEqual(review["historical_sha256"], manifest["historical_boundaries"]["files"][filename])
+            self.assertEqual(review["sha256"], manifest["files"][filename])
+            self.assertEqual(review["sha256"], hashlib.sha256((HERE.parent / filename).read_bytes()).hexdigest())
+            self.assertNotEqual(review["historical_sha256"], review["sha256"])
+
+    def test_workflow_prompt_review_keeps_previous_english_hashes(self):
+        manifest = json.loads((HERE / "localization-boundaries.json").read_text())
+        for identifier in ("agent/planner.go::plannerDefaultTmpl", "agent/goals.go::goalsDefaultTmpl"):
+            review = manifest["templates"][identifier]
+            self.assertEqual(len(review["previous_reviewed_sha256"]), 64)
+            self.assertNotEqual(review["previous_reviewed_sha256"], review["sha256"])
+            self.assertEqual(review["historical_sha256"], manifest["historical_boundaries"]["templates"][identifier])
+            self.assertIn("not a passing live pilot", review["review"])
+
 
 if __name__ == "__main__":
     unittest.main()

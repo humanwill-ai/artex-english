@@ -1,3 +1,5 @@
+> **Historical original Chinese guide.** The use notices, release status, and validation claims below describe the source edition, not current HumanWill guidance. For the HumanWill English edition and its responsible-use guidance, read [README.md](README.md). Original attribution and licenses remain in place.
+
 <div align="center">
 
 # ARTEX

@@ -6,7 +6,7 @@ English · [Korean edition archive](README.ko.md) · [Original Chinese guide](RE
 
 ARTEX coordinates LLM agents that plan security investigations, execute tools, record assets and findings, and produce reports. A Go backend serves the Next.js interface and stores application data in PostgreSQL. The framework retains its upstream module identity and history.
 
-This HumanWill edition is an **experimental source-only preview candidate**, prepared for review. No HumanWill release or prebuilt English container image has been published. Use a local source build for code review and isolated synthetic experiments. See the [preview notes](docs/PREVIEW_RELEASE_NOTES.md) for known limitations and the [localization handoff](docs/LOCALIZATION_HANDOFF.md) for development evidence; neither establishes production readiness.
+This HumanWill edition is an **experimental source-only preview candidate**, prepared for review. No HumanWill release or prebuilt English container image has been published. Build from source and review the [preview notes](docs/PREVIEW_RELEASE_NOTES.md) for known limitations and the [localization handoff](docs/LOCALIZATION_HANDOFF.md) for development evidence; neither establishes production readiness.
 
 ## English localization
 
@@ -27,9 +27,9 @@ See [localization boundaries and validation](docs/ENGLISH_LOCALIZATION.md).
 
 ## ⚠️ Read first — authorized use and legal notice
 
-For this preview, limit execution to code study, local interface review, and non-destructive verification with synthetic data in a locally isolated lab that you built and control. Do not target live services or run actual penetration tests, including tests with written authorization. Configuring a target or approval scope in the interface does not broaden this preview scope.
+The current HumanWill [responsible-use guidance](web/messages/en.json) supports lawful research, defensive assessment, and authorized penetration testing. For a live assessment, work only on systems you own and have authority to test, or where the appropriate owner has expressly permitted the work within an agreed scope. Agree on targets, methods, timing, and data handling before starting. An ARTEX target entry, scope setting, or approval control does not itself grant permission. Unlawful intrusion, data theft, extortion, and unlawful disruption are unacceptable.
 
-The inherited [login Terms of Use](web/messages/en.json), [Korean-edition usage notices](README.ko-edition.en.md#license-and-disclaimer), and [defense guide](docs/defense-en.md) remain in place. Some historical documentation discusses authorized live testing, while the login terms prohibit actual penetration tests and production use. The narrow preview scope above follows the restrictive terms without changing or interpreting the inherited legal text. The maintainers must resolve the broader notice conflict before offering a wider use scope.
+Because this alpha has unresolved finding/report and unavailable-service completion defects, we recommend starting with an isolated synthetic lab and reviewing every generated action, finding, and completion status before relying on it. This is a reliability recommendation, not an additional software-license condition. The login notice is HumanWill's updated guidance; the [Korean-edition notices](README.ko-edition.en.md#license-and-disclaimer) and [defense guide](docs/defense-en.md) are retained as historical source context, not this edition's current use policy. The [AGPL-3.0 license](LICENSE), [frontend MIT notice](web/LICENSE), attribution, and no-warranty text remain in place.
 
 ## Build and run from source
 
@@ -102,7 +102,7 @@ For arm64, use `linux/arm64`, `dist/arm64/artex`, and `TARGETARCH=arm64` consist
 
 The self-updater checks only `humanwill-ai/artex-en`. A private repository or absent release produces an unavailable-release message; there is **no upstream release fallback**. The prebuilt Docker paths in `install.sh` and `update.sh` stop before deployment. For now, review incoming source changes and rebuild locally. `update.sh` option **2** offers a source update and rebuild.
 
-GitHub workflows remain disabled during private preparation. See the [preview candidate checklist](docs/PREVIEW_RELEASE_CHECKLIST.md) for publication gates.
+GitHub workflows remain disabled during release preparation. See the [preview candidate checklist](docs/PREVIEW_RELEASE_CHECKLIST.md) for publication gates.
 
 ## Development
 

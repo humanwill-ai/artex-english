@@ -1,10 +1,10 @@
 # ARTEX English edition: implementation and validation record
 
-This public-facing record describes the source edition at code revision `0502a9e416113349bc3524cf022ae279685bb52c` and the experimental source-only preview. It is a summary of completed work and observed limitations, not a claim that security workflows are reliable on real targets.
+This public-facing record describes the source edition in this candidate and its experimental source-only preview. It is a summary of completed work and observed limitations, not a claim that security workflows are reliable on real targets.
 
 ## Provenance and scope
 
-The English edition derives from `jiwoochris/artex-ko` at `7333fa47b9bdd89b4973992b2e15d9c393539b8c`, itself derived from `Autumn-27/ARTEX`. The imported upstream history, authorship, module identifiers, root AGPL-3.0 text, and frontend MIT notice are retained. English is the default interface language; the Korean and Chinese catalogs remain selectable references. Application-owned prompts, tool descriptions, runtime instructions, server messages and synthetic examples were translated while retaining authorization and scope controls, tool contracts, commands, payloads, and recorded evidence.
+The English edition derives from `jiwoochris/artex-ko` at `7333fa47b9bdd89b4973992b2e15d9c393539b8c`, itself derived from `Autumn-27/ARTEX`. The imported upstream history, authorship, module identifiers, root AGPL-3.0 text, and frontend MIT notice are retained. English is the default interface language; the Korean and Chinese catalogs remain selectable. Their current login guidance was updated together while the earlier source notices remain in archived documents. Application-owned prompts, tool descriptions, runtime instructions, server messages and synthetic examples were translated while retaining authorization and scope controls, tool contracts, commands, payloads, and recorded evidence.
 
 The edition also includes a read-only task export and structured recording provenance for independent offline analysis. The recording path is explicitly partial; it does not guarantee complete capture or model/tool correlation for every source. Exporting a task does not invoke the normal archive lifecycle. This source feature runs without an external analysis service.
 
@@ -20,6 +20,6 @@ A later recording/export integration test used an isolated PostgreSQL instance, 
 
 ## Preview boundary and next work
 
-This source-only preview is for code review and non-destructive verification in a locally isolated synthetic lab. Do not infer readiness for live testing or production use. The inherited login terms and older authorized-testing notices differ; the preview follows the narrower scope described in the [README](../README.md). The original notices are preserved for review.
+This source-only alpha supports lawful research and authorized assessment within the appropriate owner’s agreed scope. Because the application has unresolved workflow defects, begin with a locally isolated synthetic lab and review generated actions, evidence, reports, and completion status. The active HumanWill responsible-use guidance is described in the [README](../README.md); earlier source-edition notices remain archived for attribution and comparison.
 
-Priorities before broader release are the unresolved completion/evidence workflow, dependency advisories, target CI versions, Windows and Docker validation, and an explicit decision on the inherited notice conflict. GitHub release automation remains disabled during preparation; the release workflow's tag trigger, image destination, permissions, secrets and package contents require separate review before activation.
+Priorities before broader release are the unresolved completion/evidence workflow, dependency advisories, target CI versions, Windows and Docker validation, and review of the updated responsible-use guidance. GitHub release automation remains disabled during preparation; the release workflow's tag trigger, image destination, permissions, secrets and package contents require separate review before activation.

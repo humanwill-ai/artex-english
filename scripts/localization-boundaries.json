@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "baseline": "c436bfad4400f70a2f25a159ca2bc9fe42a88ca1",
+  "baseline": "7333fa47b9bdd89b4973992b2e15d9c393539b8c",
   "authorization": {
-    "scope": "Owner requested genuinely English application-owned internal prompts and standard tests, superseding the original text-preservation boundary. Licensing, source catalogs, schemas, technical identifiers, policy meaning, and raw/custom data remain protected.",
-    "review_required": "Any change to active reviewed hashes requires a semantic review and explicit manifest edit; historical hashes must not be overwritten."
+    "scope": "English-first application-owned instruction translation and synthetic test review. Licensing, schemas, technical identifiers, raw/custom data, and original provenance remain protected.",
+    "review_required": "Any change to active reviewed hashes requires a semantic review and explicit manifest edit; historical hashes must not be overwritten.",
+    "responsible_use_notice": "The active inherited login notice was replaced in English, Korean, and Chinese with HumanWill responsible-use guidance. Licenses, attribution, source history, backend authorization/approval controls, and the preserved no-warranty body remain unchanged. Historical catalog hashes remain below."
   },
   "historical_boundaries": {
     "files": {
@@ -32,9 +33,21 @@
   "files": {
     "LICENSE": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
     "web/LICENSE": "d4f2f6115637639342e10780a8c4ebf4ea54239662aa362554ede12fe1d0beaa",
-    "web/messages/ko.json": "09193b8c8062a3e8c3da1e983cc0245a3f3d5e752f870c308d47741779614858",
-    "web/messages/zh.json": "653cf33eedce70392984f3bf21fad69e70af8bbabf3f2f7152c79bcd49bb6908",
+    "web/messages/ko.json": "79f847a4b3eeb5f2efa0af325fa66d9535fea67d27613d1609e73d1fc018d7c9",
+    "web/messages/zh.json": "37f2fc2c08c066da1d76d00e95a5abdbebee3a6e013584ea1fccf217cd9c4c76",
     "db/schema.sql": "17f0f9e28e1a587f48e8723dfc84b5daf25887642e54b12801f95f1fcaea4002"
+  },
+  "reviewed_notice_catalogs": {
+    "web/messages/ko.json": {
+      "historical_sha256": "09193b8c8062a3e8c3da1e983cc0245a3f3d5e752f870c308d47741779614858",
+      "sha256": "79f847a4b3eeb5f2efa0af325fa66d9535fea67d27613d1609e73d1fc018d7c9",
+      "review": "Only 29 auth.login acknowledgement and auth.terms notice keys changed; former source notice remains in historical Git revisions and Korean-edition documents. No-warranty body and all other catalog entries are unchanged."
+    },
+    "web/messages/zh.json": {
+      "historical_sha256": "653cf33eedce70392984f3bf21fad69e70af8bbabf3f2f7152c79bcd49bb6908",
+      "sha256": "37f2fc2c08c066da1d76d00e95a5abdbebee3a6e013584ea1fccf217cd9c4c76",
+      "review": "Only 29 auth.login acknowledgement and auth.terms notice keys changed; former source notice remains in historical Git revisions and original-language documents. No-warranty body and all other catalog entries are unchanged."
+    }
   },
   "reviewed_files": {
     "agent/constraints.go": {
@@ -85,10 +98,11 @@
       "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
     },
     "agent/planner.go::plannerDefaultTmpl": {
-      "sha256": "19d6afdfd3219b53fb94d7bfb533705aa55114bf66e8a3b69565e4d4bc5da74b",
+      "sha256": "ae53760a500e942b182839d66871e4dd61dae267f3eae6d979899d8ea05e5ac6",
       "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
       "historical_sha256": "14e163f4a44da9fee20a214048a607adc3659b2025275569eb512532ca8c15d5",
-      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+      "previous_reviewed_sha256": "19d6afdfd3219b53fb94d7bfb533705aa55114bf66e8a3b69565e4d4bc5da74b",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits. The later shared workflow repair replaced mandatory redispatch with bounded await_condition after two facts and requires bound traffic and a current report for a positive finding workflow. This records the reviewed 0502 source change, not a passing live pilot."
     },
     "agent/mainagent.go::mainAgentDefaultTmpl": {
       "sha256": "642368036d3c30dc543737ecfa5c6e60e260729cfc4a7835ce1b5acfd3ba0f68",
@@ -97,10 +111,11 @@
       "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
     },
     "agent/goals.go::goalsDefaultTmpl": {
-      "sha256": "2f310a115aff62b6e338f999e00948d286d464d8ac4b9ce572a7d353a565d248",
+      "sha256": "4cd34b685ae5d43e9c992454d3ba4d11da98f7f4d5ef94e61d39df5c1dea815a",
       "hash_semantics": "Complete decoded Go string constant, including concatenated segments",
       "historical_sha256": "72a7a0159443b41dde29dfba8a3de6a2c8a15b273935495a7b88561fa708aa68",
-      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits."
+      "previous_reviewed_sha256": "2f310a115aff62b6e338f999e00948d286d464d8ac4b9ce572a7d353a565d248",
+      "review": "English translation preserving role responsibilities, scope, tool identifiers, evidence requirements, and operational limits. The later shared workflow repair added structured finding_workflow/observation completion intent and verified negative proof. This records the reviewed 0502 source change, not a passing live pilot."
     },
     "agent/goals.go::goalsScopeTail": {
       "sha256": "d3e6c7fe952c889426b9b742396d7d72ba0c65f3b5a4d29ddb7b0f0dfdf492d1",

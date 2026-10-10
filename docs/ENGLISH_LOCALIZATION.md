@@ -13,7 +13,7 @@ Translation preserves behavioral requirements: authorization boundaries, interce
 - Tool and API names, schema keys/types/enums/defaults, database identifiers, and machine-readable tokens.
 - Commands, payloads, paths, URLs, requests, responses, and original external evidence.
 - User-written content, customized prompts/settings, and historical findings.
-- Source attribution, Git history, copyright notices, licenses, and archived source-language documentation/catalogs.
+- Source attribution, upstream Git history, copyright notices, licenses, and archived source-language documentation. The current responsible-use notice is updated consistently in all selectable catalogs; other source-language entries are retained.
 
 English-only describes the application-owned experience and supported evaluation scope. It does not filter or rewrite real input. Raw evidence can contain any language and must remain exact; this release does not promise reliable interpretation of every non-English input. Legacy detection strings and old built-in defaults remain only where needed for compatibility and safe upgrades.
 

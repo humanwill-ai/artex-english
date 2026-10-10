@@ -1,4 +1,4 @@
-> **HumanWill English edition:** this Korean document is an archive of the source edition’s contribution policy. For this English edition, follow [CONTRIBUTING.en.md](CONTRIBUTING.en.md) and [AGENTS.md](AGENTS.md). The localization target is English. Do not submit HumanWill project material to the upstream issue tracker.
+> **HumanWill English edition:** this Korean document is an archive of the source edition’s contribution policy. For current contribution guidance, follow [CONTRIBUTING.en.md](CONTRIBUTING.en.md) and [AGENTS.md](AGENTS.md). The localization target is English. Do not submit HumanWill project material to the upstream issue tracker.
 
 # 기여 가이드 (Contributing)
 

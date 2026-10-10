@@ -22,7 +22,7 @@ Record the source revision and the exact scope imported in the handoff. The old 
 
 ## Translation maintenance
 
-English lives in `web/messages/en.json`; Korean and Chinese catalogs remain reference and selectable interface locales. Preserve identical message structure and interpolation/ICU contracts across all three. English is the default; `NEXT_PUBLIC_LOCALE=ko` or `zh` changes the interface at build time.
+English lives in `web/messages/en.json`; Korean and Chinese catalogs remain selectable interface locales. Preserve identical message structure and interpolation/ICU contracts across all three. English is the default; `NEXT_PUBLIC_LOCALE=ko` or `zh` changes the interface at build time. The active login guidance and acknowledgement were updated together in all three catalogs. Former source notices remain in labeled historical guides, and the boundary manifest retains original and reviewed catalog hashes.
 
 Application-owned behavioral instructions and runtime context use English. Preserve their meaning and all authorization/scope restrictions. Keep customized prompts, commands, evidence, and wire values unchanged. Preserve original audit content and policy decisions; legacy language matchers remain compatibility data rather than English output. Any migration of stored defaults must recognize an exact pristine default and preserve customized records and version history.
 

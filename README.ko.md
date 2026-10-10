@@ -1,6 +1,6 @@
-> **HumanWill ARTEX English edition — private preparation**
+> **Historical Korean-edition guide**
 >
-> This repository preserves the source and history of [jiwoochris/artex-ko](https://github.com/jiwoochris/artex-ko), derived from [Autumn-27/ARTEX](https://github.com/Autumn-27/ARTEX). English localization has not started. The inherited application and README below still describe the Korean edition. See [the localization handoff](docs/LOCALIZATION_HANDOFF.md) for scope, provenance, and next steps. The existing AGPL-3.0 license and attribution are retained.
+> This archived guide describes [jiwoochris/artex-ko](https://github.com/jiwoochris/artex-ko), derived from [Autumn-27/ARTEX](https://github.com/Autumn-27/ARTEX). Its usage notices, release status, and validation claims describe that source edition, not current HumanWill guidance. For this English edition, read [README.md](README.md) and its responsible-use guidance. The original license and attribution remain in place.
 
 <div align="center">
 
