@@ -14,7 +14,7 @@
 
 ## Related issue
 
-<!-- Link the issue in humanwill-ai/artex-en, if applicable. -->
+<!-- Link the issue in humanwill-ai/artex-english, if applicable. -->
 
 ## Validation
 

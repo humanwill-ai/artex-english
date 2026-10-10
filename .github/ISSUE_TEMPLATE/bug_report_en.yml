@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Report a problem with the HumanWill English edition. Use synthetic or redacted examples.
-        **Do not use this template for security vulnerabilities. Report them through the private process in [SECURITY.en.md](https://github.com/humanwill-ai/artex-en/blob/main/SECURITY.en.md).**
+        **Do not use this template for security vulnerabilities. Report them through the private process in [SECURITY.en.md](https://github.com/humanwill-ai/artex-english/blob/main/SECURITY.en.md).**
   - type: checkboxes
     id: preflight
     attributes:

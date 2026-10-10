@@ -4,7 +4,7 @@ English policy for the HumanWill edition · [Korean source-edition policy](SECUR
 
 This repository is currently private and has no published HumanWill release. See [the current README](README.md) for project status.
 
-This document explains how to report security vulnerabilities in the **HumanWill ARTEX English edition (`humanwill-ai/artex-en`) code itself**. ARTEX is an offensive-security tool that performs penetration testing, but what this document covers is not the results of attacking something with the tool; it is **vulnerabilities that arise when you operate or deploy this software**.
+This document explains how to report security vulnerabilities in the **HumanWill ARTEX English edition (`humanwill-ai/artex-english`) code itself**. ARTEX is an offensive-security tool that performs penetration testing, but what this document covers is not the results of attacking something with the tool; it is **vulnerabilities that arise when you operate or deploy this software**.
 
 For example:
 
@@ -17,7 +17,7 @@ For example:
 
 **Do not file security vulnerabilities as public issues.** Once public, they can be exploited before a patch is available. Please use one of the following private channels instead.
 
-1. If available in **humanwill-ai/artex-en**, use **Security** → **"Report a vulnerability"** (GitHub Private Vulnerability Reporting). Availability is not assumed during private preparation.
+1. If available in **humanwill-ai/artex-english**, use **Security** → **"Report a vulnerability"** (GitHub Private Vulnerability Reporting). Availability is not assumed until the proposed public repository is created and configured.
 2. If that feature is not enabled, do not write sensitive details. Open only a minimal issue stating that you would like a private security contact, and ask the maintainers to open a private channel.
 
 Including the following in your report speeds up triage:

@@ -38,8 +38,8 @@ Prerequisites: Go **1.26.3 or later** (`go.mod`), Node.js **22 or later** (use a
 For a checkout you are authorized to access:
 
 ```bash
-git clone https://github.com/humanwill-ai/artex-en.git
-cd artex-en
+git clone https://github.com/humanwill-ai/artex-english.git
+cd artex-english
 ```
 
 Create `config.json` with a database and role that already exist, or set `ARTEX_PG_DSN` instead:
@@ -100,7 +100,7 @@ For arm64, use `linux/arm64`, `dist/arm64/artex`, and `TARGETARCH=arm64` consist
 
 ### Updates
 
-The self-updater checks only `humanwill-ai/artex-en`. A private repository or absent release produces an unavailable-release message; there is **no upstream release fallback**. The prebuilt Docker paths in `install.sh` and `update.sh` stop before deployment. For now, review incoming source changes and rebuild locally. `update.sh` option **2** offers a source update and rebuild.
+The self-updater checks only `humanwill-ai/artex-english`. A private repository or absent release produces an unavailable-release message; there is **no upstream release fallback**. The prebuilt Docker paths in `install.sh` and `update.sh` stop before deployment. For now, review incoming source changes and rebuild locally. `update.sh` option **2** offers a source update and rebuild.
 
 GitHub workflows remain disabled during release preparation. See the [preview candidate checklist](docs/PREVIEW_RELEASE_CHECKLIST.md) for publication gates.
 
@@ -143,6 +143,6 @@ The [inherited architecture walkthrough](README.ko-edition.en.md#system-architec
 
 The root [LICENSE](LICENSE) remains **AGPL-3.0**. The existing [web/LICENSE](web/LICENSE) MIT notice, including its copyright attribution, is retained for the frontend material it covers. Other upstream and third-party notices remain in place. This localization does not relicense those materials.
 
-Source lineage: **Autumn-27/ARTEX → jiwoochris/artex-ko → humanwill-ai/artex-en**. The upstream Go module path and dependency identifiers remain unchanged. Repository privacy and GitHub’s fork label do not replace the applicable license terms.
+Source lineage: **Autumn-27/ARTEX → jiwoochris/artex-ko → humanwill-ai/artex-english**. The upstream Go module path and dependency identifiers remain unchanged. Repository privacy and GitHub’s fork label do not replace the applicable license terms.
 
 Original language documents and the [historical English guide to the Korean edition](README.ko-edition.en.md) preserve the inherited notices and context. For current preparation status, use [the handoff](docs/LOCALIZATION_HANDOFF.md).

@@ -6,10 +6,10 @@ body:
   - type: markdown
     attributes:
       value: |
-        **HumanWill English edition:** this form retains wording from the original Korean edition. Current localization targets English; follow [the current contribution policy](https://github.com/humanwill-ai/artex-en/blob/main/CONTRIBUTING.en.md).
+        **HumanWill English edition:** this form retains wording from the original Korean edition. Current localization targets English; follow [the current contribution policy](https://github.com/humanwill-ai/artex-english/blob/main/CONTRIBUTING.en.md).
         한국어판의 품질을 높이는 데 도움을 주셔서 고맙습니다.
         이 저장소의 현지화 방침은 **사용자에게 보이는 산출물만 한국어로 바꾸고, 에이전트의 내부 추론 프롬프트와 명령·페이로드·코드·로그 원문은 원문 그대로 둔다**는 것입니다.
-        자세한 원칙은 [CONTRIBUTING.md](https://github.com/humanwill-ai/artex-en/blob/main/CONTRIBUTING.en.md#localization-policy)에 있습니다.
+        자세한 원칙은 [CONTRIBUTING.md](https://github.com/humanwill-ai/artex-english/blob/main/CONTRIBUTING.en.md#localization-policy)에 있습니다.
   - type: dropdown
     id: kind
     attributes:

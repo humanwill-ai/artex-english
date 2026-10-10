@@ -1,6 +1,6 @@
 # Contributing to the HumanWill English edition
 
-This is the private `humanwill-ai/artex-en` project. Read [AGENTS.md](AGENTS.md), the [localization boundaries](docs/ENGLISH_LOCALIZATION.md), and the [current handoff](docs/LOCALIZATION_HANDOFF.md) before changing it. The [Korean contribution guide](CONTRIBUTING.md) and [its historical English translation](CONTRIBUTING.ko-edition.en.md) describe the source edition.
+This is the HumanWill English edition intended for `humanwill-ai/artex-english`. Read [AGENTS.md](AGENTS.md), the [localization boundaries](docs/ENGLISH_LOCALIZATION.md), and the [current handoff](docs/LOCALIZATION_HANDOFF.md) before changing it. The [Korean contribution guide](CONTRIBUTING.md) and [its historical English translation](CONTRIBUTING.ko-edition.en.md) describe the source edition.
 
 ## Authorized use and legal responsibility
 

@@ -8,7 +8,7 @@ body:
       value: |
         Report a localization issue in the HumanWill English edition.
         This repository's localization policy: **translate application-owned user-facing output into English, and preserve core behavioral instructions, source policies, custom prompts, commands, payloads, code, raw logs, and evidence.**
-        The full principles are in [CONTRIBUTING.en.md](https://github.com/humanwill-ai/artex-en/blob/main/CONTRIBUTING.en.md#localization-policy).
+        The full principles are in [CONTRIBUTING.en.md](https://github.com/humanwill-ai/artex-english/blob/main/CONTRIBUTING.en.md#localization-policy).
   - type: dropdown
     id: kind
     attributes:

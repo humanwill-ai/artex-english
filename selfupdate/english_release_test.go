@@ -12,7 +12,7 @@ func TestEnglishEditionNeverChecksUpstreamReleases(t *testing.T) {
 	calls := 0
 	client := &http.Client{Transport: rtFunc(func(req *http.Request) (*http.Response, error) {
 		calls++
-		if req.URL.String() != "https://api.github.com/repos/humanwill-ai/artex-en/releases/latest" {
+		if req.URL.String() != "https://api.github.com/repos/humanwill-ai/artex-english/releases/latest" {
 			t.Fatalf("unexpected release source: %s", req.URL)
 		}
 		if req.Header.Get("User-Agent") != "artex-selfupdate" {

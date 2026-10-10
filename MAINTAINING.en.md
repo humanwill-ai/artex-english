@@ -8,7 +8,7 @@ The imported Korean source revision is `7333fa47b9bdd89b4973992b2e15d9c393539b8c
 
 Expected checkout remotes:
 
-- `origin`: `humanwill-ai/artex-en`.
+- `origin`: `humanwill-ai/artex-english`.
 - `upstream`: `jiwoochris/artex-ko`, with its push URL disabled in the prepared checkout.
 - Original project lineage: `Autumn-27/ARTEX`; its availability is not assumed.
 
@@ -47,13 +47,13 @@ Record failures honestly, including dependency availability, machine resource li
 
 ## Updates, containers, and releases
 
-There is no published HumanWill English release or prebuilt application image. The updater targets `humanwill-ai/artex-en` only and must not fall back to upstream binaries. The prebuilt Docker options in the install/update scripts fail before deployment; source builds remain available.
+There is no published HumanWill English release or prebuilt application image. The updater targets `humanwill-ai/artex-english` only and must not fall back to upstream binaries. The prebuilt Docker options in the install/update scripts fail before deployment; source builds remain available.
 
 Compose uses `humanwill-artex-en:local` with `pull_policy: never`. Follow the [local image instructions](README.md#local-docker-image) to prepare the Linux binary and build that image. Preserve the distinction between a locally built image and a published artifact.
 
 Review workflow triggers, repository destinations, Docker namespaces, secrets, package contents, license notices, and permissions before enabling release automation. Do not enable workflows, push release tags, publish images, or change repository visibility merely to test a localization change.
 
-When checking GitHub state, specify `humanwill-ai/artex-en` explicitly so upstream results are not mistaken for this repository’s results. No GitHub action is needed for local documentation or translation validation.
+When checking GitHub state, specify `humanwill-ai/artex-english` explicitly so upstream results are not mistaken for this repository’s results. No GitHub action is needed for local documentation or translation validation.
 
 ## Historical materials
 

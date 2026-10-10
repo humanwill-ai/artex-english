@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: Report a security vulnerability privately
-    url: https://github.com/humanwill-ai/artex-en/blob/main/SECURITY.en.md
+    url: https://github.com/humanwill-ai/artex-english/blob/main/SECURITY.en.md
     about: Do not disclose vulnerabilities in an issue. Follow the current private-reporting guidance; availability of GitHub private reporting is not assumed.
   - name: Authorized use and project status
-    url: https://github.com/humanwill-ai/artex-en/blob/main/README.md
+    url: https://github.com/humanwill-ai/artex-english/blob/main/README.md
     about: Read the HumanWill English edition setup, authorized-use guidance, and private preparation status.
   - name: Contribution and localization policy
-    url: https://github.com/humanwill-ai/artex-en/blob/main/CONTRIBUTING.en.md
+    url: https://github.com/humanwill-ai/artex-english/blob/main/CONTRIBUTING.en.md
     about: English localization boundaries, evidence preservation, tests, and repository handling.
