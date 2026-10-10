@@ -6,7 +6,7 @@ English · [Korean edition archive](README.ko.md) · [Original Chinese guide](RE
 
 ARTEX coordinates LLM agents that plan security investigations, execute tools, record assets and findings, and produce reports. A Go backend serves the Next.js interface and stores application data in PostgreSQL. The framework retains its upstream module identity and history.
 
-This HumanWill edition is an **experimental source-only preview candidate**, prepared for review. No HumanWill release or prebuilt English container image has been published. Build from source and review the [preview notes](docs/PREVIEW_RELEASE_NOTES.md) for known limitations and the [localization handoff](docs/LOCALIZATION_HANDOFF.md) for development evidence; neither establishes production readiness.
+This HumanWill edition has an **experimental source-only prerelease**, `v0.1.0-alpha.1`. It has no prebuilt binaries or container images. Build from source and review the [release notes](docs/PREVIEW_RELEASE_NOTES.md) for known limitations and the [localization handoff](docs/LOCALIZATION_HANDOFF.md) for development evidence; neither establishes production readiness.
 
 ## English localization
 
@@ -100,9 +100,9 @@ For arm64, use `linux/arm64`, `dist/arm64/artex`, and `TARGETARCH=arm64` consist
 
 ### Updates
 
-The self-updater checks only `humanwill-ai/artex-english`. A private repository or absent release produces an unavailable-release message; there is **no upstream release fallback**. The prebuilt Docker paths in `install.sh` and `update.sh` stop before deployment. For now, review incoming source changes and rebuild locally. `update.sh` option **2** offers a source update and rebuild.
+The self-updater checks only stable releases from `humanwill-ai/artex-english`; it does not offer this source-only prerelease, and there is **no upstream release fallback**. The prebuilt Docker paths in `install.sh` and `update.sh` stop before deployment. Review incoming source changes and rebuild locally. `update.sh` option **2** offers a source update and rebuild.
 
-GitHub workflows remain disabled during release preparation. See the [preview candidate checklist](docs/PREVIEW_RELEASE_CHECKLIST.md) for publication gates.
+GitHub Actions remain disabled for this source-only prerelease. See the [release verification record](docs/PREVIEW_RELEASE_CHECKLIST.md) for completed checks and future gates.
 
 ## Development
 

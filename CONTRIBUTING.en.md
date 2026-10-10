@@ -41,7 +41,7 @@ ARTEX_PG_DSN='postgres://artex:local-test-password@127.0.0.1:5432/artex_test_age
   go test ./agent/ -count=1 -v
 ```
 
-Repeat for each affected package with its own fresh database and inspect skipped-test output. Workflow definitions describe how checks are intended to run; GitHub Actions are disabled during private preparation.
+Repeat for each affected package with its own fresh database and inspect skipped-test output. Workflow definitions describe how checks are intended to run; GitHub Actions are disabled for the source-only prerelease.
 
 ### Frontend
 

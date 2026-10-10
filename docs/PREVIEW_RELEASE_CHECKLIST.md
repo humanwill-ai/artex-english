@@ -1,10 +1,10 @@
-# ARTEX English edition preview checklist
+# ARTEX English edition source prerelease verification
 
-This checklist accompanies the experimental source-only preview candidate. It does not authorize publication or claim production readiness.
+The `v0.1.0-alpha.1` release contains source only. It does not claim production readiness or reliable live-target behavior.
 
-- Confirm that the source package includes the root AGPL-3.0 license, frontend MIT notice, retained upstream attribution, and this edition's provenance.
-- Confirm the published revision and source archive match the reviewed candidate, and that generated files, credentials, raw model responses, local databases and private run artifacts are absent.
-- Confirm the active HumanWill responsible-use guidance is consistent across English, Korean and Chinese. Historical source-edition notices should be clearly labeled as archived. Assess reliability limits before any live testing claim; an isolated synthetic lab is the recommended starting point.
-- Keep the unresolved positive-workflow and unavailable-service failures in the release notes. Do not claim language parity, reliable security-task completion, Windows/Docker support, or target CI-matrix results without new evidence.
-- Review dependency advisories and release workflow triggers, permissions, secrets, image destinations and package contents before enabling automation or publishing binaries/images.
-- Require explicit maintainer approval for the exact repository visibility, release text, version, archive and publication destination.
+- The source archive contains the root AGPL-3.0 license, frontend MIT notice, upstream attribution, and the HumanWill English-edition provenance.
+- The active HumanWill responsible-use guidance is consistent across English, Korean, and Chinese. Earlier source-edition notices are labeled as historical context.
+- The release notes disclose unresolved positive finding/report and unavailable-service workflow failures, 24 frontend dependency advisories including two critical, and platform checks that remain incomplete.
+- The local validation record includes a clean-source build on macOS Intel, a later frontend static build after the guidance revision, focused self-updater and localization checks, and document-link checks. These do not establish safety or performance on real targets.
+- GitHub Actions are disabled. The checked-in tag-triggered workflow and inherited Docker destination require separate review before enabling automation or publishing binaries/images.
+- There are no prebuilt application binaries or container images in this prerelease. The self-updater queries stable releases only and does not install this source-only prerelease.

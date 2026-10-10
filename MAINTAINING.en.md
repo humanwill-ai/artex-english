@@ -47,7 +47,7 @@ Record failures honestly, including dependency availability, machine resource li
 
 ## Updates, containers, and releases
 
-There is no published HumanWill English release or prebuilt application image. The updater targets `humanwill-ai/artex-english` only and must not fall back to upstream binaries. The prebuilt Docker options in the install/update scripts fail before deployment; source builds remain available.
+The `v0.1.0-alpha.1` HumanWill release is source-only, with no prebuilt application image. The updater targets stable releases from `humanwill-ai/artex-english` only and must not fall back to upstream binaries. The prebuilt Docker options in the install/update scripts fail before deployment; source builds remain available.
 
 Compose uses `humanwill-artex-en:local` with `pull_policy: never`. Follow the [local image instructions](README.md#local-docker-image) to prepare the Linux binary and build that image. Preserve the distinction between a locally built image and a published artifact.
 
